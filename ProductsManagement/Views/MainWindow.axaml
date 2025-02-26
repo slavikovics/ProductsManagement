@@ -7,14 +7,73 @@
         x:Class="ProductsManagement.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="ProductsManagement">
+        Title="ProductsManagement"
+        Background="#666A86">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" Margin="10" Text="{Binding Header}"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Margin="5" Background="#92B6B1" Content="Add new product"></Button>
+            <Button Margin="5" Background="#92B6B1" Content="Delete product"></Button>
+            <Button Margin="5" Background="#92B6B1" Content="Find product"></Button>
+        </StackPanel>
+        <ScrollViewer Margin="10" Grid.Row="2">
+            <StackPanel>
+                <Border CornerRadius="10" Margin="5 5 5 5" Height="40" Background="#92B6B1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="1. Example product 1" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        <Button Grid.Column="1" HorizontalAlignment="Right" Content="Delete" Margin="5"></Button>
+                        <Button Grid.Column="2" HorizontalAlignment="Right" Content="Edit" Margin="5"></Button>
+                    </Grid>
+                </Border>
+                <Border CornerRadius="10" Margin="5 5 5 5" Height="40" Background="#92B6B1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="2. Example product 2" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        <Button Grid.Column="1" HorizontalAlignment="Right" Content="Delete" Margin="5"></Button>
+                        <Button Grid.Column="2" HorizontalAlignment="Right" Content="Edit" Margin="5"></Button>
+                    </Grid>
+                </Border>
+                <Border CornerRadius="10" Margin="5 5 5 5" Height="40" Background="#92B6B1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="3. Example product 3" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        <Button Grid.Column="1" HorizontalAlignment="Right" Content="Delete" Margin="5"></Button>
+                        <Button Grid.Column="2" HorizontalAlignment="Right" Content="Edit" Margin="5"></Button>
+                    </Grid>
+                </Border>
+                <DataGrid>
+                    
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Row="3">
+            
+        </Grid>
+    </Grid>
 </Window>
