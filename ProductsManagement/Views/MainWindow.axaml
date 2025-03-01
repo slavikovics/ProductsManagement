@@ -21,59 +21,47 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" Margin="10" Text="{Binding Header}"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button Margin="5" Background="#92B6B1" Content="Add new product"></Button>
-            <Button Margin="5" Background="#92B6B1" Content="Delete product"></Button>
-            <Button Margin="5" Background="#92B6B1" Content="Find product"></Button>
+            <Button Margin="5" Content="Add new product"></Button>
+            <Button Margin="5" Content="Delete product"></Button>
+            <Button Margin="5" Content="Find product"></Button>
         </StackPanel>
         <ScrollViewer Margin="10" Grid.Row="2">
             <StackPanel>
-                <Border CornerRadius="10" Margin="5 5 5 5" Height="40" Background="#92B6B1">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="1. Example product 1" VerticalAlignment="Center" Margin="10 0 0 0"/>
-                        <Button Grid.Column="1" HorizontalAlignment="Right" Content="Delete" Margin="5"></Button>
-                        <Button Grid.Column="2" HorizontalAlignment="Right" Content="Edit" Margin="5"></Button>
-                    </Grid>
-                </Border>
-                <Border CornerRadius="10" Margin="5 5 5 5" Height="40" Background="#92B6B1">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="2. Example product 2" VerticalAlignment="Center" Margin="10 0 0 0"/>
-                        <Button Grid.Column="1" HorizontalAlignment="Right" Content="Delete" Margin="5"></Button>
-                        <Button Grid.Column="2" HorizontalAlignment="Right" Content="Edit" Margin="5"></Button>
-                    </Grid>
-                </Border>
-                <Border CornerRadius="10" Margin="5 5 5 5" Height="40" Background="#92B6B1">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="3. Example product 3" VerticalAlignment="Center" Margin="10 0 0 0"/>
-                        <Button Grid.Column="1" HorizontalAlignment="Right" Content="Delete" Margin="5"></Button>
-                        <Button Grid.Column="2" HorizontalAlignment="Right" Content="Edit" Margin="5"></Button>
-                    </Grid>
-                </Border>
-                <DataGrid>
-                    
+                <DataGrid ItemsSource="{Binding Products}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название товара" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Название производителя" Binding="{Binding Price}"/>
+                        <DataGridTextColumn Header="УНП производителя" Binding="{Binding ManufacturerUnp}"/>
+                        <DataGridTextColumn Header="Количество на складе" Binding="{Binding StorageQuantity}"></DataGridTextColumn>
+                    </DataGrid.Columns>
                 </DataGrid>
+                <TextBlock Name="DataGridEnd"></TextBlock>
             </StackPanel>
         </ScrollViewer>
         <Grid Grid.Row="3">
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="0" Content="1"/>
+            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="1" Content="12"/>
+            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="2" Content="13"/>
+            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="3" Content="14"/>
+            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="4" Content="56"/>
+            <ComboBox Margin="10" HorizontalAlignment="Center" Grid.Column="5">
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="10"/>
+                <ComboBoxItem Content="15"/>
+                <ComboBoxItem Content="20"/>
+            </ComboBox>
         </Grid>
     </Grid>
 </Window>

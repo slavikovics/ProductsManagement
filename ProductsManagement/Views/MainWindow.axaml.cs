@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using Avalonia.Controls;
+using ProductsManagement.ViewModels;
 
 namespace ProductsManagement.Views
 {
@@ -7,6 +9,8 @@ namespace ProductsManagement.Views
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel();
+            Debug.WriteLine(this.DataContext != null ? "DataContext is set." : "DataContext is null.");
         }
     }
 }
