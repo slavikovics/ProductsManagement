@@ -32,7 +32,7 @@
         </StackPanel>
         <ScrollViewer Margin="10" Grid.Row="2">
             <StackPanel>
-                <DataGrid IsReadOnly="True" ItemsSource="{Binding Products}">
+                <DataGrid IsReadOnly="True" ItemsSource="{Binding ProductsTable}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Название товара" Binding="{Binding Name}"/>
                         <DataGridTextColumn Header="Название производителя" Binding="{Binding ManufacturerName}"/>
@@ -53,11 +53,11 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             
-            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="0" Content="1"/>
+            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="0" Content="{Binding FirstPageNumber}"/>
             <Button Margin="10" HorizontalAlignment="Center" Grid.Column="1" Content="&lt;"/>
-            <Button Margin="10" HorizontalAlignment="Center" IsEnabled="False" Grid.Column="2" Content="13"/>
+            <Button Margin="10" HorizontalAlignment="Center" IsEnabled="False" Grid.Column="2" Content="{Binding SelectedPageNumber}"/>
             <Button Margin="10" HorizontalAlignment="Center" Grid.Column="3" Content="&gt;"/>
-            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="4" Content="56"/>
+            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="4" Content="{Binding LastPageNumber}"/>
             
             <ComboBox Margin="10" HorizontalAlignment="Center" Grid.Column="5">
                 <ComboBoxItem Content="5"/>

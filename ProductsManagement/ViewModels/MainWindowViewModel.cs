@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -12,7 +14,13 @@ namespace ProductsManagement.ViewModels
     {
         public string Header { get; } = "Управление товарами";
 
-        public ObservableCollection<Product> Products { get; set; }
+        public ObservableCollection<Product> ProductsTable { get; set; }
+
+        public int FirstPageNumber { get; private set; }
+
+        public int SelectedPageNumber { get; private set; }
+
+        public int LastPageNumber { get; private set; }
 
         public RelayCommand AddProductCommand { get; }
 
@@ -21,9 +29,13 @@ namespace ProductsManagement.ViewModels
         public MainWindowViewModel()
         {
             _context = new ProductsContext();
-            Products = new ObservableCollection<Product>(_context.Products);
-            Products.CollectionChanged += UpdateContext;
+            ProductsTable = new ObservableCollection<Product>(_context.Products);
+            ProductsTable.CollectionChanged += UpdateContext;
             AddProductCommand = new RelayCommand(AddProduct);
+
+            FirstPageNumber = 1;
+            SelectedPageNumber = 1;
+            LastPageNumber = (int)Math.Ceiling((double)ProductsTable.Count / 10);
         }
         
         private void UpdateContext(object? sender, NotifyCollectionChangedEventArgs e)
@@ -50,7 +62,7 @@ namespace ProductsManagement.ViewModels
         {
             AddProductWindow addProductWindow = new AddProductWindow
             {
-                DataContext = new AddProductViewModel(Products)
+                DataContext = new AddProductViewModel(ProductsTable)
             };
             addProductWindow.Show();
         }
