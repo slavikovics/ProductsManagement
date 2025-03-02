@@ -1,32 +1,58 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.EntityFrameworkCore.Storage;
+using ProductsManagement.Views;
 
 namespace ProductsManagement.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        public string Header { get; } = "Products Management";
+        public string Header { get; } = "Управление товарами";
 
         public ObservableCollection<Product> Products { get; set; }
-        
+
+        public RelayCommand AddProductCommand { get; }
+
+        private readonly ProductsContext _context;
+
         public MainWindowViewModel()
         {
-            //var products = new List<Product>();
-            //Product p1 = new Product("продукт 1", 123.46, "3874728397423894723", 15, "г. Минск, пр. Независимости, 54");
-            //Product p2 = new Product("продукт 2", 85.45, "3874728397423894723", 0, "г. Минск, пр. Независимости, 14");
-            //Product p3 = new Product("продукт 3", 67.46, "3874728397423894723", 4, "г. Минск, пр. Независимости, 25");
+            _context = new ProductsContext();
+            Products = new ObservableCollection<Product>(_context.Products);
+            Products.CollectionChanged += UpdateContext;
+            AddProductCommand = new RelayCommand(AddProduct);
+        }
+        
+        private void UpdateContext(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                foreach (Product newItem in e.NewItems)
+                {
+                    _context.Products.Add(newItem);
+                }
+            }
+            else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            {
+                foreach (Product oldItem in e.OldItems)
+                {
+                    _context.Products.Remove(oldItem);
+                }
+            }
 
-            ProductsContext context = new ProductsContext();
-            
-            //products.Add(p1);
-            //context.Products.Add(p1);
-            //products.Add(p2);
-            //.Products.Add(p2);
-            //products.Add(p3);
-            //context.Products.Add(p3);
-            //context.SaveChanges();
-            Products = new ObservableCollection<Product>(context.Products);
+            _context.SaveChanges();
+        }
+
+        private void AddProduct()
+        {
+            AddProductWindow addProductWindow = new AddProductWindow
+            {
+                DataContext = new AddProductViewModel(Products)
+            };
+            addProductWindow.Show();
         }
     }
 }

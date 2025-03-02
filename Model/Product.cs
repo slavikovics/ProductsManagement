@@ -9,7 +9,7 @@ public class Product
 
     public string Name {get; set;}
     
-    public double Price {get; set;}
+    public string ManufacturerName {get; set;}
     
     public string ManufacturerUnp {get; set;}
     
@@ -17,10 +17,10 @@ public class Product
     
     public string Address {get; set;}
 
-    public Product(string name, double price, string manufacturerUnp, int storageQuantity, string address)
+    public Product(string name, string manufacturerName, string manufacturerUnp, int storageQuantity, string address)
     {
         Name = name;
-        Price = price;
+        ManufacturerName = manufacturerName;
         ManufacturerUnp = manufacturerUnp;
         StorageQuantity = storageQuantity;
         Address = address;
