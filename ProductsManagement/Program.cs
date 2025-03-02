@@ -1,5 +1,7 @@
 ﻿using System;
 using Avalonia;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ProductsManagement
 {
