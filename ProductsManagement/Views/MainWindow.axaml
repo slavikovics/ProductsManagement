@@ -9,6 +9,7 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="ProductsManagement"
+        FontFamily="Montserrat"
         Background="#666A86">
 
     <Design.DataContext>
@@ -32,7 +33,7 @@
         </StackPanel>
         <ScrollViewer Margin="10" Grid.Row="2">
             <StackPanel>
-                <DataGrid IsReadOnly="True" ItemsSource="{Binding ProductsTable}">
+                <DataGrid IsReadOnly="True" ItemsSource="{Binding ProductsPage}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Название товара" Binding="{Binding Name}"/>
                         <DataGridTextColumn Header="Название производителя" Binding="{Binding ManufacturerName}"/>
@@ -43,23 +44,23 @@
                 <TextBlock Name="DataGridEnd"></TextBlock>
             </StackPanel>
         </ScrollViewer>
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="3" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
             <Button Margin="10" HorizontalAlignment="Center" Grid.Column="0" Content="{Binding FirstPageNumber}"/>
-            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="1" Content="&lt;"/>
+            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="1" Command="{Binding PreviousPageCommand}" Content="&lt;"/>
             <Button Margin="10" HorizontalAlignment="Center" IsEnabled="False" Grid.Column="2" Content="{Binding SelectedPageNumber}"/>
-            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="3" Content="&gt;"/>
+            <Button Margin="10" HorizontalAlignment="Center" Grid.Column="3" Command="{Binding NextPageCommand}" Content="&gt;"/>
             <Button Margin="10" HorizontalAlignment="Center" Grid.Column="4" Content="{Binding LastPageNumber}"/>
             
-            <ComboBox Margin="10" HorizontalAlignment="Center" Grid.Column="5">
+            <ComboBox Margin="10" HorizontalAlignment="Center" SelectedValue="{Binding ProductsPerPage}" Grid.Column="5">
                 <ComboBoxItem Content="5"/>
                 <ComboBoxItem Content="10"/>
                 <ComboBoxItem Content="15"/>

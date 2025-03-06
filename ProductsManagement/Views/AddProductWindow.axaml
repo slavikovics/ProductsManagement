@@ -9,6 +9,7 @@
         x:Class="ProductsManagement.Views.AddProductWindow"
         Background="#666A86"
         x:DataType="viewModels:AddProductViewModel"
+        FontFamily="Montserrat"
         Title="AddProductWindow">
     <Design.DataContext>
         <viewModels:AddProductViewModel/>
