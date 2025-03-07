@@ -14,7 +14,7 @@ namespace ProductsManagement.ViewModels
     {
         public string Header { get; } = "Управление товарами";
 
-        public ObservableCollection<Product> ProductsTable { get; set; }
+        private ObservableCollection<Product> ProductsTable { get; set; }
         
         public ObservableCollection<Product> ProductsPage { get; set; }
 
@@ -30,13 +30,37 @@ namespace ProductsManagement.ViewModels
         
         public bool IsPreviousPageEnabled { get; private set; } = true;
 
+        private int _comboboxSelectedIndex;
+
+        public int ComboboxSelectedIndex 
+        {
+            get => _comboboxSelectedIndex;
+            set
+            {
+                SetProperty(ref _comboboxSelectedIndex, value);
+                ComboboxNewItemSelected();
+            }
+        }
+
         public RelayCommand AddProductCommand { get; }
         
         public RelayCommand NextPageCommand { get; }
         
         public RelayCommand PreviousPageCommand { get; }
+        
+        public RelayCommand ComboboxNewItemCommand { get; }
 
         private readonly ProductsContext _context;
+
+        public List<string> ComboboxItems { get; } = ["5", "10", "15", "20"];
+
+        private Dictionary<int, int> ProductsPerPageDictionary { get; } = new Dictionary<int, int>()
+        {
+            {0, 5},
+            {1, 10},
+            {2, 15},
+            {3, 20}
+        };
 
         public MainWindowViewModel()
         {
@@ -48,11 +72,12 @@ namespace ProductsManagement.ViewModels
             AddProductCommand = new RelayCommand(AddProduct);
             NextPageCommand = new RelayCommand(NextPage);
             PreviousPageCommand = new RelayCommand(PreviousPage);
+            ComboboxNewItemCommand = new RelayCommand(ComboboxNewItemSelected);
             
             FirstPageNumber = 1;
             SelectedPageNumber = 1;
-            ProductsPerPage = 10;
-            LastPageNumber = (int)Math.Ceiling((double)ProductsTable.Count / ProductsPerPage);
+            ComboboxSelectedIndex = 1;
+            ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             RebuildTable();
         }
         
@@ -80,6 +105,9 @@ namespace ProductsManagement.ViewModels
 
         private void RebuildTable()
         {
+            LastPageNumber = (int) Math.Ceiling((double)ProductsTable.Count / ProductsPerPage);
+            if (ProductsPage.Count != ProductsPerPage) SelectedPageNumber = 1;
+            
             ProductsPage.Clear();
             int itemsCountOnPage = Math.Min(ProductsTable.Count - (SelectedPageNumber - 1) * ProductsPerPage, ProductsPerPage);
             List<Product> currentSelection = ProductsTable.ToList()
@@ -114,6 +142,12 @@ namespace ProductsManagement.ViewModels
             SelectedPageNumber--;
             if (SelectedPageNumber == FirstPageNumber) IsPreviousPageEnabled = false;
             if (SelectedPageNumber == LastPageNumber - 1) IsNextPageEnabled = true;
+            RebuildTable();
+        }
+
+        private void ComboboxNewItemSelected()
+        {
+            ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             RebuildTable();
         }
     }
