@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Data.SqlTypes;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -18,20 +19,44 @@ namespace ProductsManagement.ViewModels
         
         public ObservableCollection<Product> ProductsPage { get; set; }
 
-        public int FirstPageNumber { get; private set; }
+        private readonly int _firstPageNumber;
+        public int FirstPageNumber
+        {
+            get => _firstPageNumber;
+            private init => SetProperty(ref _firstPageNumber, value);
+        }
 
-        public int SelectedPageNumber { get; private set; }
+        private int _selectedPageNumber;
+        public int SelectedPageNumber
+        {
+            get => _selectedPageNumber;
+            private set => SetProperty(ref _selectedPageNumber, value);
+        }
 
-        public int LastPageNumber { get; private set; }
+        private int _lastPageNumber;
+        public int LastPageNumber
+        {
+            get => _lastPageNumber;
+            private set => SetProperty(ref _lastPageNumber, value);
+        }
         
-        public int ProductsPerPage { get; private set; }
+        private int ProductsPerPage { get; set; }
 
-        public bool IsNextPageEnabled { get; private set; } = true;
-        
-        public bool IsPreviousPageEnabled { get; private set; } = true;
+        private bool _isNextPageEnabled = true;
+        public bool IsNextPageEnabled
+        {
+            get => _isNextPageEnabled;
+            private set => SetProperty(ref _isNextPageEnabled, value);
+        }
+
+        private bool _isPreviousPageEnabled = true;
+        public bool IsPreviousPageEnabled
+        {
+            get => _isNextPageEnabled;
+            private set => SetProperty(ref _isPreviousPageEnabled, value);
+        }
 
         private int _comboboxSelectedIndex;
-
         public int ComboboxSelectedIndex 
         {
             get => _comboboxSelectedIndex;
@@ -89,7 +114,6 @@ namespace ProductsManagement.ViewModels
                 {
                     _context.Products.Add(newItem);
                 }
-                RebuildTable();
             }
             else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
             {
@@ -97,9 +121,9 @@ namespace ProductsManagement.ViewModels
                 {
                     _context.Products.Remove(oldItem);
                 }
-                RebuildTable();
             }
 
+            RebuildTable();
             _context.SaveChanges();
         }
 
@@ -114,6 +138,9 @@ namespace ProductsManagement.ViewModels
                 .GetRange((SelectedPageNumber - 1) * ProductsPerPage, itemsCountOnPage);
             
             foreach (Product product in currentSelection) ProductsPage.Add(product);
+            
+            if (SelectedPageNumber == LastPageNumber) IsNextPageEnabled = false;
+            if (SelectedPageNumber == FirstPageNumber) IsPreviousPageEnabled = false;
         }
 
         private void AddProduct()
