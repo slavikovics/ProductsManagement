@@ -66,7 +66,6 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
             <Button Margin="10" 
@@ -106,12 +105,6 @@
                       ItemsSource="{Binding ComboboxItems}"
                       SelectedIndex="{Binding ComboboxSelectedIndex}" 
                       Grid.Column="5"/>
-            
-            <TextBlock Grid.Column="6"
-                       Margin="10"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Text="{Binding ProductsTable.Count}"/>
         </Grid>
     </Grid>
 </Window>
