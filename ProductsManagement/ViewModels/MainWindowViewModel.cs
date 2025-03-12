@@ -19,21 +19,21 @@ namespace ProductsManagement.ViewModels
         
         public ObservableCollection<Product> ProductsPage { get; set; }
 
-        private readonly int _firstPageNumber;
+        private readonly int _firstPageNumber = 1;
         public int FirstPageNumber
         {
             get => _firstPageNumber;
             private init => SetProperty(ref _firstPageNumber, value);
         }
 
-        private int _selectedPageNumber;
+        private int _selectedPageNumber = 1;
         public int SelectedPageNumber
         {
             get => _selectedPageNumber;
             private set => SetProperty(ref _selectedPageNumber, value);
         }
 
-        private int _lastPageNumber;
+        private int _lastPageNumber = 1;
         public int LastPageNumber
         {
             get => _lastPageNumber;
@@ -42,21 +42,21 @@ namespace ProductsManagement.ViewModels
         
         private int ProductsPerPage { get; set; }
 
-        private bool _isNextPageEnabled = true;
+        private bool _isNextPageEnabled = false;
         public bool IsNextPageEnabled
         {
             get => _isNextPageEnabled;
             private set => SetProperty(ref _isNextPageEnabled, value);
         }
 
-        private bool _isPreviousPageEnabled = true;
+        private bool _isPreviousPageEnabled = false;
         public bool IsPreviousPageEnabled
         {
-            get => _isNextPageEnabled;
+            get => _isPreviousPageEnabled;
             private set => SetProperty(ref _isPreviousPageEnabled, value);
         }
 
-        private int _comboboxSelectedIndex;
+        private int _comboboxSelectedIndex = 1;
         public int ComboboxSelectedIndex 
         {
             get => _comboboxSelectedIndex;
@@ -99,9 +99,6 @@ namespace ProductsManagement.ViewModels
             PreviousPageCommand = new RelayCommand(PreviousPage);
             ComboboxNewItemCommand = new RelayCommand(ComboboxNewItemSelected);
             
-            FirstPageNumber = 1;
-            SelectedPageNumber = 1;
-            ComboboxSelectedIndex = 1;
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             RebuildTable();
         }
@@ -129,18 +126,18 @@ namespace ProductsManagement.ViewModels
 
         private void RebuildTable()
         {
-            LastPageNumber = (int) Math.Ceiling((double)ProductsTable.Count / ProductsPerPage);
-            if (ProductsPage.Count != ProductsPerPage) SelectedPageNumber = 1;
-            
+            LastPageNumber = (int)Math.Ceiling((double)ProductsTable.Count / ProductsPerPage);
+
             ProductsPage.Clear();
-            int itemsCountOnPage = Math.Min(ProductsTable.Count - (SelectedPageNumber - 1) * ProductsPerPage, ProductsPerPage);
+            int itemsCountOnPage = Math.Min(ProductsTable.Count - (SelectedPageNumber - 1) * ProductsPerPage,
+                ProductsPerPage);
             List<Product> currentSelection = ProductsTable.ToList()
                 .GetRange((SelectedPageNumber - 1) * ProductsPerPage, itemsCountOnPage);
-            
+
             foreach (Product product in currentSelection) ProductsPage.Add(product);
-            
-            if (SelectedPageNumber == LastPageNumber) IsNextPageEnabled = false;
-            if (SelectedPageNumber == FirstPageNumber) IsPreviousPageEnabled = false;
+
+            IsNextPageEnabled = SelectedPageNumber != LastPageNumber;
+            IsPreviousPageEnabled = SelectedPageNumber != FirstPageNumber;
         }
 
         private void AddProduct()
@@ -155,26 +152,21 @@ namespace ProductsManagement.ViewModels
         private void NextPage()
         {
             if (SelectedPageNumber >= LastPageNumber) return;
-            
             SelectedPageNumber++;
-            if (SelectedPageNumber == LastPageNumber) IsNextPageEnabled = false;
-            if (SelectedPageNumber == FirstPageNumber + 1) IsPreviousPageEnabled = true;
             RebuildTable();
         }
 
         private void PreviousPage()
         {
             if (SelectedPageNumber <= FirstPageNumber) return;
-            
             SelectedPageNumber--;
-            if (SelectedPageNumber == FirstPageNumber) IsPreviousPageEnabled = false;
-            if (SelectedPageNumber == LastPageNumber - 1) IsNextPageEnabled = true;
             RebuildTable();
         }
 
         private void ComboboxNewItemSelected()
         {
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
+            SelectedPageNumber = FirstPageNumber;
             RebuildTable();
         }
     }
