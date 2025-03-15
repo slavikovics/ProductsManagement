@@ -25,4 +25,8 @@ public class Product
         StorageQuantity = storageQuantity;
         Address = address;
     }
+
+    public Product()
+    {
+    }
 }

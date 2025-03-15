@@ -11,13 +11,13 @@ using ProductsManagement.Views;
 
 namespace ProductsManagement.ViewModels
 {
-    public partial class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         public string Header { get; } = "Управление товарами";
-
-        private ObservableCollection<Product> ProductsTable { get; set; }
         
         public ObservableCollection<Product> ProductsPage { get; set; }
+        
+        private ProductsTable _productsTable;
 
         private readonly int _firstPageNumber = 1;
         public int FirstPageNumber
@@ -75,8 +75,6 @@ namespace ProductsManagement.ViewModels
         
         public RelayCommand ComboboxNewItemCommand { get; }
 
-        private readonly ProductsContext _context;
-
         public List<string> ComboboxItems { get; } = ["5", "10", "15", "20"];
 
         private Dictionary<int, int> ProductsPerPageDictionary { get; } = new Dictionary<int, int>()
@@ -89,11 +87,8 @@ namespace ProductsManagement.ViewModels
 
         public MainWindowViewModel()
         {
-            _context = new ProductsContext();
-            ProductsTable = new ObservableCollection<Product>(_context.Products);
-            
+            _productsTable = new ProductsTable();
             ProductsPage = new ObservableCollection<Product>();
-            ProductsTable.CollectionChanged += UpdateContext;
             AddProductCommand = new RelayCommand(AddProduct);
             NextPageCommand = new RelayCommand(NextPage);
             PreviousPageCommand = new RelayCommand(PreviousPage);
@@ -102,36 +97,15 @@ namespace ProductsManagement.ViewModels
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             RebuildTable();
         }
-        
-        private void UpdateContext(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-            {
-                foreach (Product newItem in e.NewItems)
-                {
-                    _context.Products.Add(newItem);
-                }
-            }
-            else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
-            {
-                foreach (Product oldItem in e.OldItems)
-                {
-                    _context.Products.Remove(oldItem);
-                }
-            }
-
-            RebuildTable();
-            _context.SaveChanges();
-        }
 
         private void RebuildTable()
         {
-            LastPageNumber = (int)Math.Ceiling((double)ProductsTable.Count / ProductsPerPage);
+            LastPageNumber = (int)Math.Ceiling((double)_productsTable.Products.Count / ProductsPerPage);
 
             ProductsPage.Clear();
-            int itemsCountOnPage = Math.Min(ProductsTable.Count - (SelectedPageNumber - 1) * ProductsPerPage,
+            int itemsCountOnPage = Math.Min(_productsTable.Products.Count - (SelectedPageNumber - 1) * ProductsPerPage,
                 ProductsPerPage);
-            List<Product> currentSelection = ProductsTable.ToList()
+            List<Product> currentSelection = _productsTable.Products.ToList()
                 .GetRange((SelectedPageNumber - 1) * ProductsPerPage, itemsCountOnPage);
 
             foreach (Product product in currentSelection) ProductsPage.Add(product);
@@ -144,7 +118,7 @@ namespace ProductsManagement.ViewModels
         {
             AddProductWindow addProductWindow = new AddProductWindow
             {
-                DataContext = new AddProductViewModel(ProductsTable)
+                DataContext = new AddProductViewModel(_productsTable.Products)
             };
             addProductWindow.Show();
         }
@@ -168,6 +142,11 @@ namespace ProductsManagement.ViewModels
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             SelectedPageNumber = FirstPageNumber;
             RebuildTable();
+        }
+
+        private void SwitchToNewTable()
+        {
+            
         }
     }
 }
