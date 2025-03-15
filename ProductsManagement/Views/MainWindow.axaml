@@ -43,7 +43,9 @@
                       Grid.Row="2">
             <StackPanel>
                 <DataGrid IsReadOnly="True" 
-                          ItemsSource="{Binding ProductsPage}">
+                          ItemsSource="{Binding ProductsPage}"
+                          CanUserReorderColumns="True"
+                          CanUserResizeColumns="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Название товара" 
                                             Binding="{Binding Name}"/>
@@ -55,6 +57,9 @@
                                             Binding="{Binding StorageQuantity}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+                <TreeDataGrid Source="{Binding ProductsPage}">
+                    
+                </TreeDataGrid>
                 <TextBlock Name="DataGridEnd"></TextBlock>
             </StackPanel>
         </ScrollViewer>
