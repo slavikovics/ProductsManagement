@@ -38,6 +38,9 @@
                     Content="Удалить товар"/>
             <Button Margin="5" 
                     Content="Найти товар"/>
+            <Button Margin="5"
+                    Content="Load from XML"
+                    Command="{Binding LoadFromXmlCommand}"/>
             <Button Margin="5" 
                     Content="🌳"
                     VerticalAlignment="Center"

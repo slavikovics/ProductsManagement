@@ -4,11 +4,14 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Controls.Models.TreeDataGrid;
+using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Identity.Client.Extensions.Msal;
 using ProductsManagement.Views;
 
 namespace ProductsManagement.ViewModels
@@ -16,6 +19,8 @@ namespace ProductsManagement.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         public string Header { get; } = "Управление товарами";
+        
+        public Window Parent { get; set; }
         
         public ObservableCollection<Product> ProductsPage { get; set; }
         
@@ -102,6 +107,10 @@ namespace ProductsManagement.ViewModels
         
         public RelayCommand SelectTableCommand { get; }
 
+        public RelayCommand LoadFromXmlCommand { get; }
+        
+        public RelayCommand LoadFromDatabaseCommand { get; }
+
         public List<string> ComboboxItems { get; } = ["5", "10", "15", "20"];
 
         private Dictionary<int, int> ProductsPerPageDictionary { get; } = new Dictionary<int, int>()
@@ -136,8 +145,9 @@ namespace ProductsManagement.ViewModels
             };
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(Window window)
         {
+            Parent = window;
             _productsTable = new ProductsTable();
             ProductsPage = new ObservableCollection<Product>();
             AddProductCommand = new RelayCommand(AddProduct);
@@ -146,6 +156,7 @@ namespace ProductsManagement.ViewModels
             ComboboxNewItemCommand = new RelayCommand(ComboboxNewItemSelected);
             SelectTableCommand = new RelayCommand(SelectTableView);
             SelectTreeViewCommand = new RelayCommand(SelectTreeView);
+            LoadFromXmlCommand = new RelayCommand(LoadFromXml);
             
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             RebuildTable();
@@ -162,6 +173,43 @@ namespace ProductsManagement.ViewModels
         {
             IsTreeViewSelected = false;
             IsTableSelected = true;
+        }
+
+        private async void LoadFromXml()
+        {
+            SelectedPageNumber = 1;
+            //IStorageFile? file = await OpenFileAsync(Parent);
+            var files = await Parent.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "Select a file",
+                AllowMultiple = false,
+                FileTypeFilter =
+                [
+                    new FilePickerFileType("Xml Files") { Patterns = ["*.xml", "*.XML"] }
+                ]
+            });
+            if (files is null) return;
+            ProductsTable productsTable = new ProductsTable(files[0].Path.ToString());
+        }
+        
+        private async Task<IStorageFile?> OpenFileAsync(Window parent)
+        {
+            if (parent.StorageProvider is { } storageProvider)
+            {
+                var files = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+                {
+                    Title = "Select a file",
+                    AllowMultiple = false,
+                    FileTypeFilter =
+                    [
+                        new FilePickerFileType("Xml Files") { Patterns = ["*.xml", "*.XML"] }
+                    ]
+                });
+
+                return files.Count > 0 ? files[0] : null;
+            }
+
+            return null;
         }
 
         private void RebuildTable()
