@@ -38,11 +38,23 @@
                     Content="Удалить товар"/>
             <Button Margin="5" 
                     Content="Найти товар"/>
+            <Button Margin="5" 
+                    Content="🌳"
+                    VerticalAlignment="Center"
+                    Command="{Binding SelectTreeViewCommand}"
+                    IsEnabled="{Binding IsTableSelected}"/>
+            <Button Margin="5"
+                    Content="📃"
+                    Command="{Binding SelectTableCommand}"
+                    IsEnabled="{Binding IsTreeViewSelected}"
+                    VerticalAlignment="Center"/>
+            
         </StackPanel>
         <ScrollViewer Margin="10" 
                       Grid.Row="2">
             <StackPanel>
                 <DataGrid IsReadOnly="True" 
+                          IsVisible="{Binding IsTableSelected}"
                           ItemsSource="{Binding ProductsPage}"
                           CanUserReorderColumns="True"
                           CanUserResizeColumns="True">
@@ -57,8 +69,7 @@
                                             Binding="{Binding StorageQuantity}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <TreeDataGrid Source="{Binding ProductsPage}">
-                    
+                <TreeDataGrid IsVisible="{Binding IsTreeViewSelected}" Source="{Binding HierarchicalTreeDataGridSource}">
                 </TreeDataGrid>
                 <TextBlock Name="DataGridEnd"></TextBlock>
             </StackPanel>

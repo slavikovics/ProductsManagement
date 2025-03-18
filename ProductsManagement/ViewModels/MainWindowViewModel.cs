@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Data.SqlTypes;
 using System.Linq;
+using Avalonia.Controls;
+using Avalonia.Controls.Models.TreeDataGrid;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -17,7 +19,7 @@ namespace ProductsManagement.ViewModels
         
         public ObservableCollection<Product> ProductsPage { get; set; }
         
-        private ProductsTable _productsTable;
+        private readonly ProductsTable _productsTable;
 
         private readonly int _firstPageNumber = 1;
         public int FirstPageNumber
@@ -55,6 +57,20 @@ namespace ProductsManagement.ViewModels
             get => _isPreviousPageEnabled;
             private set => SetProperty(ref _isPreviousPageEnabled, value);
         }
+        
+        private bool _isTreeViewSelected = false;
+        public bool IsTreeViewSelected
+        {
+            get => _isTreeViewSelected;
+            private set => SetProperty(ref _isTreeViewSelected, value);
+        }
+        
+        private bool _isTableSelected = true;
+        public bool IsTableSelected
+        {
+            get => _isTableSelected;
+            private set => SetProperty(ref _isTableSelected, value);
+        }
 
         private int _comboboxSelectedIndex = 1;
         public int ComboboxSelectedIndex 
@@ -67,6 +83,13 @@ namespace ProductsManagement.ViewModels
             }
         }
 
+        private HierarchicalTreeDataGridSource<HierarchicalTreeDataGridItem> _treeDataGrid;
+        public HierarchicalTreeDataGridSource<HierarchicalTreeDataGridItem> HierarchicalTreeDataGridSource
+        {
+            get => _treeDataGrid;
+            set => SetProperty(ref _treeDataGrid, value);
+        }
+
         public RelayCommand AddProductCommand { get; }
         
         public RelayCommand NextPageCommand { get; }
@@ -74,6 +97,10 @@ namespace ProductsManagement.ViewModels
         public RelayCommand PreviousPageCommand { get; }
         
         public RelayCommand ComboboxNewItemCommand { get; }
+        
+        public RelayCommand SelectTreeViewCommand { get; }
+        
+        public RelayCommand SelectTableCommand { get; }
 
         public List<string> ComboboxItems { get; } = ["5", "10", "15", "20"];
 
@@ -85,6 +112,30 @@ namespace ProductsManagement.ViewModels
             {3, 20}
         };
 
+        private List<HierarchicalTreeDataGridItem> MakeHierarchicalTreeDataGrid(List<Product> products)
+        {
+            List<HierarchicalTreeDataGridItem> hierarchicalTreeDataGridItems = new List<HierarchicalTreeDataGridItem>();
+            foreach (var product in products)
+            {
+                hierarchicalTreeDataGridItems.Add(new HierarchicalTreeDataGridItem(product));
+            }
+
+            return hierarchicalTreeDataGridItems;
+        }
+
+        private void InitializeHierarchicalTreeDataGrid()
+        {
+            var items = MakeHierarchicalTreeDataGrid(ProductsPage.ToList());
+            HierarchicalTreeDataGridSource = new HierarchicalTreeDataGridSource<HierarchicalTreeDataGridItem>(items)
+            {
+                Columns =
+                {
+                    new HierarchicalExpanderColumn<HierarchicalTreeDataGridItem>(new TextColumn<HierarchicalTreeDataGridItem, string>("Название товара", item => item.Name), 
+                        item => item.Children)
+                }
+            };
+        }
+
         public MainWindowViewModel()
         {
             _productsTable = new ProductsTable();
@@ -93,9 +144,24 @@ namespace ProductsManagement.ViewModels
             NextPageCommand = new RelayCommand(NextPage);
             PreviousPageCommand = new RelayCommand(PreviousPage);
             ComboboxNewItemCommand = new RelayCommand(ComboboxNewItemSelected);
+            SelectTableCommand = new RelayCommand(SelectTableView);
+            SelectTreeViewCommand = new RelayCommand(SelectTreeView);
             
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             RebuildTable();
+            InitializeHierarchicalTreeDataGrid();
+        }
+
+        private void SelectTreeView()
+        {
+            IsTreeViewSelected = true;
+            IsTableSelected = false;
+        }
+
+        private void SelectTableView()
+        {
+            IsTreeViewSelected = false;
+            IsTableSelected = true;
         }
 
         private void RebuildTable()
@@ -112,6 +178,8 @@ namespace ProductsManagement.ViewModels
 
             IsNextPageEnabled = SelectedPageNumber != LastPageNumber;
             IsPreviousPageEnabled = SelectedPageNumber != FirstPageNumber;
+            
+            InitializeHierarchicalTreeDataGrid();
         }
 
         private void AddProduct()
