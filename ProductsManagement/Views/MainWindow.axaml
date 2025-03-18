@@ -40,7 +40,7 @@
                     Content="Найти товар"/>
             <Button Margin="5"
                     Content="Load from XML"
-                    Command="{Binding LoadFromXmlCommand}"/>
+                    Click="OpenFileDialog"/>
             <Button Margin="5" 
                     Content="🌳"
                     VerticalAlignment="Center"

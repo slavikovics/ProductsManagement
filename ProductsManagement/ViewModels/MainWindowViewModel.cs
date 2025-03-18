@@ -16,11 +16,9 @@ using ProductsManagement.Views;
 
 namespace ProductsManagement.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public partial class MainWindowViewModel : ViewModelBase
     {
         public string Header { get; } = "Управление товарами";
-        
-        public Window Parent { get; set; }
         
         public ObservableCollection<Product> ProductsPage { get; set; }
         
@@ -94,6 +92,8 @@ namespace ProductsManagement.ViewModels
             get => _treeDataGrid;
             set => SetProperty(ref _treeDataGrid, value);
         }
+        
+        private FilePickerService _filePickerService = new FilePickerService();
 
         public RelayCommand AddProductCommand { get; }
         
@@ -145,9 +145,8 @@ namespace ProductsManagement.ViewModels
             };
         }
 
-        public MainWindowViewModel(Window window)
+        public MainWindowViewModel()
         {
-            Parent = window;
             _productsTable = new ProductsTable();
             ProductsPage = new ObservableCollection<Product>();
             AddProductCommand = new RelayCommand(AddProduct);
@@ -156,7 +155,6 @@ namespace ProductsManagement.ViewModels
             ComboboxNewItemCommand = new RelayCommand(ComboboxNewItemSelected);
             SelectTableCommand = new RelayCommand(SelectTableView);
             SelectTreeViewCommand = new RelayCommand(SelectTreeView);
-            LoadFromXmlCommand = new RelayCommand(LoadFromXml);
             
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             RebuildTable();
@@ -174,42 +172,15 @@ namespace ProductsManagement.ViewModels
             IsTreeViewSelected = false;
             IsTableSelected = true;
         }
-
-        private async void LoadFromXml()
-        {
-            SelectedPageNumber = 1;
-            //IStorageFile? file = await OpenFileAsync(Parent);
-            var files = await Parent.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-            {
-                Title = "Select a file",
-                AllowMultiple = false,
-                FileTypeFilter =
-                [
-                    new FilePickerFileType("Xml Files") { Patterns = ["*.xml", "*.XML"] }
-                ]
-            });
-            if (files is null) return;
-            ProductsTable productsTable = new ProductsTable(files[0].Path.ToString());
-        }
         
-        private async Task<IStorageFile?> OpenFileAsync(Window parent)
+        [RelayCommand]
+        public async Task OpenFileAsync(Window parent)
         {
-            if (parent.StorageProvider is { } storageProvider)
+            var file = await _filePickerService.OpenFileAsync(parent);
+            if (file != null)
             {
-                var files = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-                {
-                    Title = "Select a file",
-                    AllowMultiple = false,
-                    FileTypeFilter =
-                    [
-                        new FilePickerFileType("Xml Files") { Patterns = ["*.xml", "*.XML"] }
-                    ]
-                });
-
-                return files.Count > 0 ? files[0] : null;
+                
             }
-
-            return null;
         }
 
         private void RebuildTable()

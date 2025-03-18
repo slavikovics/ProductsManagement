@@ -25,7 +25,7 @@ namespace ProductsManagement
                 DisableAvaloniaDataAnnotationValidation();
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(desktop.MainWindow),
+                    DataContext = new MainWindowViewModel(),
                 };
             }
 
