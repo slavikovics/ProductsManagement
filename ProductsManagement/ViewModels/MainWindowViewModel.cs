@@ -24,59 +24,32 @@ namespace ProductsManagement.ViewModels
         
         private ProductsTable _productsTable;
         
-        public int ProductsCount => _productsTable.Products.Count;
-
-        private readonly int _firstPageNumber = 1;
-        public int FirstPageNumber
-        {
-            get => _firstPageNumber;
-            private init => SetProperty(ref _firstPageNumber, value);
-        }
-
-        private int _selectedPageNumber = 1;
-        public int SelectedPageNumber
-        {
-            get => _selectedPageNumber;
-            private set => SetProperty(ref _selectedPageNumber, value);
-        }
-
-        private int _lastPageNumber = 1;
-        public int LastPageNumber
-        {
-            get => _lastPageNumber;
-            private set => SetProperty(ref _lastPageNumber, value);
-        }
-        
         private int ProductsPerPage { get; set; }
 
+        [ObservableProperty]
+        private int _productsCount;
+        
+        [ObservableProperty] 
+        private int _firstPageNumber = 1;
+
+        [ObservableProperty]
+        private int _selectedPageNumber = 1;
+
+        [ObservableProperty]
+        private int _lastPageNumber = 1;
+
+        [ObservableProperty]
         private bool _isNextPageEnabled = false;
-        public bool IsNextPageEnabled
-        {
-            get => _isNextPageEnabled;
-            private set => SetProperty(ref _isNextPageEnabled, value);
-        }
 
+        [ObservableProperty]
         private bool _isPreviousPageEnabled = false;
-        public bool IsPreviousPageEnabled
-        {
-            get => _isPreviousPageEnabled;
-            private set => SetProperty(ref _isPreviousPageEnabled, value);
-        }
         
+        [ObservableProperty]
         private bool _isTreeViewSelected = false;
-        public bool IsTreeViewSelected
-        {
-            get => _isTreeViewSelected;
-            private set => SetProperty(ref _isTreeViewSelected, value);
-        }
         
+        [ObservableProperty]
         private bool _isTableSelected = true;
-        public bool IsTableSelected
-        {
-            get => _isTableSelected;
-            private set => SetProperty(ref _isTableSelected, value);
-        }
-
+        
         private int _comboboxSelectedIndex = 1;
         public int ComboboxSelectedIndex 
         {
@@ -174,6 +147,7 @@ namespace ProductsManagement.ViewModels
 
         private void RebuildTable()
         {
+            ProductsCount = _productsTable.Products.Count;
             LastPageNumber = (int)Math.Ceiling((double)_productsTable.Products.Count / ProductsPerPage);
 
             ProductsPage.Clear();
