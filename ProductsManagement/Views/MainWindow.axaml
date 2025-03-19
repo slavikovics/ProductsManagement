@@ -30,41 +30,46 @@
                    Margin="10" 
                    Text="{Binding Header}"/>
         
-        <StackPanel Grid.Row="1" 
-                    HorizontalAlignment="Center" 
-                    Orientation="Horizontal">
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Visible">
+        
+            <StackPanel
+                HorizontalAlignment="Center" 
+                Orientation="Horizontal">
             
-            <Button Margin="5" 
-                    Content="Добавить товар" 
-                    Command="{Binding AddProduct}"/>
+                <Button Margin="5" 
+                        Content="Добавить товар" 
+                        Command="{Binding AddProduct}"/>
             
-            <Button Margin="5" 
-                    Content="Удалить товар"/>
+                <Button Margin="5" 
+                        Content="Удалить товар"/>
             
-            <Button Margin="5" 
-                    Content="Найти товар"/>
+                <Button Margin="5" 
+                        Content="Найти товар"/>
             
-            <Button Margin="5"
-                    Content="Загрузить XML"
-                    Click="OpenFileDialog"/>
+                <Button Margin="5"
+                        Content="Загрузить XML"
+                        Click="OpenFileDialog"/>
             
-            <Button Margin="5"
-                    Content="Сохранить XML"
-                    Click="SaveFileDialog"/>
+                <Button Margin="5"
+                        Content="Сохранить XML"
+                        Click="SaveFileDialog"/>
             
-            <Button Margin="5" 
-                    Content="🌳"
-                    VerticalAlignment="Center"
-                    Command="{Binding SelectTreeView}"
-                    IsEnabled="{Binding IsTableSelected}"/>
+                <Button Margin="5" 
+                        Content="🌳"
+                        VerticalAlignment="Center"
+                        Command="{Binding SelectTreeView}"
+                        IsEnabled="{Binding IsTableSelected}"/>
             
-            <Button Margin="5"
-                    Content="📃"
-                    Command="{Binding SelectTableView}"
-                    IsEnabled="{Binding IsTreeViewSelected}"
-                    VerticalAlignment="Center"/>
+                <Button Margin="5"
+                        Content="📃"
+                        Command="{Binding SelectTableView}"
+                        IsEnabled="{Binding IsTreeViewSelected}"
+                        VerticalAlignment="Center"/>
             
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        
         <ScrollViewer Margin="10" 
                       Grid.Row="2">
             <StackPanel>
