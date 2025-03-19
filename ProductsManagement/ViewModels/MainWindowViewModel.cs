@@ -134,6 +134,7 @@ namespace ProductsManagement.ViewModels
         public MainWindowViewModel()
         {
             _productsTable = new ProductsTable();
+            _productsTable.Products.CollectionChanged += (sender, args) => RebuildTable();
             ProductsPage = new ObservableCollection<Product>();
             
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
