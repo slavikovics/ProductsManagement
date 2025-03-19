@@ -23,6 +23,8 @@ namespace ProductsManagement.ViewModels
         public ObservableCollection<Product> ProductsPage { get; set; }
         
         private ProductsTable _productsTable;
+        
+        public int ProductsCount => _productsTable.Products.Count;
 
         private readonly int _firstPageNumber = 1;
         public int FirstPageNumber
