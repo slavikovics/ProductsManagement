@@ -33,7 +33,7 @@
                     Orientation="Horizontal">
             <Button Margin="5" 
                     Content="Добавить товар" 
-                    Command="{Binding AddProductCommand}"/>
+                    Command="{Binding AddProduct}"/>
             <Button Margin="5" 
                     Content="Удалить товар"/>
             <Button Margin="5" 
@@ -44,11 +44,11 @@
             <Button Margin="5" 
                     Content="🌳"
                     VerticalAlignment="Center"
-                    Command="{Binding SelectTreeViewCommand}"
+                    Command="{Binding SelectTreeView}"
                     IsEnabled="{Binding IsTableSelected}"/>
             <Button Margin="5"
                     Content="📃"
-                    Command="{Binding SelectTableCommand}"
+                    Command="{Binding SelectTableView}"
                     IsEnabled="{Binding IsTreeViewSelected}"
                     VerticalAlignment="Center"/>
             
@@ -72,7 +72,8 @@
                                             Binding="{Binding StorageQuantity}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <TreeDataGrid IsVisible="{Binding IsTreeViewSelected}" Source="{Binding HierarchicalTreeDataGridSource}">
+                <TreeDataGrid IsVisible="{Binding IsTreeViewSelected}" 
+                              Source="{Binding HierarchicalTreeDataGridSource}">
                 </TreeDataGrid>
                 <TextBlock Name="DataGridEnd"></TextBlock>
             </StackPanel>
@@ -97,7 +98,7 @@
                     HorizontalAlignment="Center" 
                     Grid.Column="1" 
                     IsEnabled="{Binding IsPreviousPageEnabled}"
-                    Command="{Binding PreviousPageCommand}" 
+                    Command="{Binding PreviousPage}" 
                     Content="&lt;"/>
             
             <Button Margin="10" 
@@ -110,7 +111,7 @@
                     HorizontalAlignment="Center" 
                     Grid.Column="3" 
                     IsEnabled="{Binding IsNextPageEnabled}"
-                    Command="{Binding NextPageCommand}" 
+                    Command="{Binding NextPage}" 
                     Content="&gt;"/>
             
             <Button Margin="10" 

@@ -82,7 +82,7 @@ namespace ProductsManagement.ViewModels
             set
             {
                 SetProperty(ref _comboboxSelectedIndex, value);
-                ComboboxNewItemSelected();
+                ComboboxSelectNewItem();
             }
         }
 
@@ -93,23 +93,7 @@ namespace ProductsManagement.ViewModels
             set => SetProperty(ref _treeDataGrid, value);
         }
         
-        private FilePickerService _filePickerService = new FilePickerService();
-
-        public RelayCommand AddProductCommand { get; }
-        
-        public RelayCommand NextPageCommand { get; }
-        
-        public RelayCommand PreviousPageCommand { get; }
-        
-        public RelayCommand ComboboxNewItemCommand { get; }
-        
-        public RelayCommand SelectTreeViewCommand { get; }
-        
-        public RelayCommand SelectTableCommand { get; }
-
-        public RelayCommand LoadFromXmlCommand { get; }
-        
-        public RelayCommand LoadFromDatabaseCommand { get; }
+        private readonly FilePickerService _filePickerService = new FilePickerService();
 
         public List<string> ComboboxItems { get; } = ["5", "10", "15", "20"];
 
@@ -149,25 +133,21 @@ namespace ProductsManagement.ViewModels
         {
             _productsTable = new ProductsTable();
             ProductsPage = new ObservableCollection<Product>();
-            AddProductCommand = new RelayCommand(AddProduct);
-            NextPageCommand = new RelayCommand(NextPage);
-            PreviousPageCommand = new RelayCommand(PreviousPage);
-            ComboboxNewItemCommand = new RelayCommand(ComboboxNewItemSelected);
-            SelectTableCommand = new RelayCommand(SelectTableView);
-            SelectTreeViewCommand = new RelayCommand(SelectTreeView);
             
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             RebuildTable();
             InitializeHierarchicalTreeDataGrid();
         }
 
-        private void SelectTreeView()
+        [RelayCommand]
+        public void SelectTreeView()
         {
             IsTreeViewSelected = true;
             IsTableSelected = false;
         }
 
-        private void SelectTableView()
+        [RelayCommand]
+        public void SelectTableView()
         {
             IsTreeViewSelected = false;
             IsTableSelected = true;
@@ -179,7 +159,7 @@ namespace ProductsManagement.ViewModels
             var file = await _filePickerService.OpenFileAsync(parent);
             if (file != null)
             {
-                
+                // TODO implement file loading
             }
         }
 
@@ -201,7 +181,8 @@ namespace ProductsManagement.ViewModels
             InitializeHierarchicalTreeDataGrid();
         }
 
-        private void AddProduct()
+        [RelayCommand]
+        public void AddProduct()
         {
             AddProductWindow addProductWindow = new AddProductWindow
             {
@@ -210,21 +191,23 @@ namespace ProductsManagement.ViewModels
             addProductWindow.Show();
         }
 
-        private void NextPage()
+        [RelayCommand]
+        public void NextPage()
         {
             if (SelectedPageNumber >= LastPageNumber) return;
             SelectedPageNumber++;
             RebuildTable();
         }
 
-        private void PreviousPage()
+        [RelayCommand]
+        public void PreviousPage()
         {
             if (SelectedPageNumber <= FirstPageNumber) return;
             SelectedPageNumber--;
             RebuildTable();
         }
-
-        private void ComboboxNewItemSelected()
+        
+        private void ComboboxSelectNewItem()
         {
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             SelectedPageNumber = FirstPageNumber;
