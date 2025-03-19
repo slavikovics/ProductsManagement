@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using ProductsManagement.ViewModels;
 
@@ -20,6 +21,14 @@ namespace ProductsManagement.Views
             if (DataContext is MainWindowViewModel mainWindowViewModel)
             {
                 await mainWindowViewModel.OpenFileAsync(this);
+            }
+        }
+
+        private async void SaveFileDialog(object? sender, RoutedEventArgs e)
+        {
+            if (DataContext is MainWindowViewModel mainWindowViewModel)
+            {
+                await mainWindowViewModel.SaveFileAsync(this);
             }
         }
     }

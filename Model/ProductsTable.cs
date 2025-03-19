@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Text;
 using System.Xml;
+using Avalonia.Platform.Storage;
 using Exception = System.Exception;
 
 namespace ProductsManagement;
@@ -72,7 +74,7 @@ public class ProductsTable
 
     private void UpdateXmlFile(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        if (_autoSave) SaveXmlFile(_xmlPath);
+        //if (_autoSave) SaveXmlFile(_xmlPath);
     }
 
     private void UpdateDatabaseContext(object? sender, NotifyCollectionChangedEventArgs e)
@@ -85,7 +87,7 @@ public class ProductsTable
         _context.SaveChanges();
     }
 
-    private void SaveXmlFile(string path)
+    public async Task SaveXmlFile(IStorageFile file)
     {
         XmlDocument xmlDoc = new XmlDocument();
         XmlElement root = xmlDoc.CreateElement("Products");
@@ -115,9 +117,13 @@ public class ProductsTable
             addressElement.InnerText = product.StorageQuantity.ToString();
             productElement.AppendChild(addressElement);
 
+            
             root.AppendChild(productElement);
         }
 
-        xmlDoc.Save(path);
+        await using var stream = await file.OpenWriteAsync();
+        await using var writer = new StreamWriter(stream, Encoding.UTF8);
+        xmlDoc.Save(writer);
+        await writer.FlushAsync();
     }
 }

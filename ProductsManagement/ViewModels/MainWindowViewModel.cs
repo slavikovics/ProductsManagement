@@ -22,7 +22,7 @@ namespace ProductsManagement.ViewModels
         
         public ObservableCollection<Product> ProductsPage { get; set; }
         
-        private readonly ProductsTable _productsTable;
+        private ProductsTable _productsTable;
 
         private readonly int _firstPageNumber = 1;
         public int FirstPageNumber
@@ -157,10 +157,16 @@ namespace ProductsManagement.ViewModels
         public async Task OpenFileAsync(Window parent)
         {
             var file = await _filePickerService.OpenFileAsync(parent);
-            if (file != null)
-            {
-                // TODO implement file loading
-            }
+            if (file == null) return;
+            
+            _productsTable = new ProductsTable(file.Path.ToString());
+            RebuildTable();
+        }
+
+        [RelayCommand]
+        public async Task SaveFileAsync(Window parent)
+        {
+            await _filePickerService.SaveFileAsync(parent, _productsTable);
         }
 
         private void RebuildTable()
@@ -212,11 +218,6 @@ namespace ProductsManagement.ViewModels
             ProductsPerPage = ProductsPerPageDictionary[ComboboxSelectedIndex];
             SelectedPageNumber = FirstPageNumber;
             RebuildTable();
-        }
-
-        private void SwitchToNewTable()
-        {
-            
         }
     }
 }
