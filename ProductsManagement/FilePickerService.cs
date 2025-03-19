@@ -30,8 +30,12 @@ public class FilePickerService
         var file = await storageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
             Title = "Сохранить XML",
-            DefaultExtension = ".xml",
-            SuggestedFileName = "your_products.xml"
+            DefaultExtension = "*.xml",
+            SuggestedFileName = "your_products.xml",
+            FileTypeChoices = 
+            [
+                new FilePickerFileType("XML файлы") {Patterns = ["*.xml", "*.XML"] }
+            ]
         });
 
         if (file == null) return;
