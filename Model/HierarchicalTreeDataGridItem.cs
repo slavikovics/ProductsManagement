@@ -1,4 +1,4 @@
-﻿namespace ProductsManagement;
+﻿namespace Model;
 
 public class HierarchicalTreeDataGridItem
 {

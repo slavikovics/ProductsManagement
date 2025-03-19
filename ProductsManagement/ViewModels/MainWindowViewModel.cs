@@ -12,6 +12,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Identity.Client.Extensions.Msal;
+using Model;
 using ProductsManagement.Views;
 
 namespace ProductsManagement.ViewModels
@@ -26,29 +27,23 @@ namespace ProductsManagement.ViewModels
         
         private int ProductsPerPage { get; set; }
 
-        [ObservableProperty]
-        private int _productsCount;
+        [ObservableProperty] private int _productsCount;
         
-        [ObservableProperty] 
-        private int _firstPageNumber = 1;
+        [ObservableProperty] private int _firstPageNumber = 1;
 
-        [ObservableProperty]
-        private int _selectedPageNumber = 1;
+        [ObservableProperty] private int _selectedPageNumber = 1;
 
-        [ObservableProperty]
-        private int _lastPageNumber = 1;
+        [ObservableProperty] private int _lastPageNumber = 1;
 
-        [ObservableProperty]
-        private bool _isNextPageEnabled = false;
+        [ObservableProperty] private bool _isNextPageEnabled = false;
 
-        [ObservableProperty]
-        private bool _isPreviousPageEnabled = false;
+        [ObservableProperty] private bool _isPreviousPageEnabled = false;
         
-        [ObservableProperty]
-        private bool _isTreeViewSelected = false;
+        [ObservableProperty] private bool _isTreeViewSelected = false;
         
-        [ObservableProperty]
-        private bool _isTableSelected = true;
+        [ObservableProperty] private bool _isTableSelected = true;
+
+        [ObservableProperty] private bool _isDatabaseEnabled = false;
         
         private int _comboboxSelectedIndex = 1;
         public int ComboboxSelectedIndex 
@@ -134,8 +129,10 @@ namespace ProductsManagement.ViewModels
         {
             var file = await _filePickerService.OpenFileAsync(parent);
             if (file == null) return;
-            
+
+            IsDatabaseEnabled = true;
             _productsTable = new ProductsTable(file.Path.ToString());
+            _productsTable.Products.CollectionChanged += (sender, args) => RebuildTable(); 
             RebuildTable();
         }
 
@@ -187,6 +184,15 @@ namespace ProductsManagement.ViewModels
         {
             if (SelectedPageNumber <= FirstPageNumber) return;
             SelectedPageNumber--;
+            RebuildTable();
+        }
+
+        [RelayCommand]
+        public void EditDatabase()
+        {
+            _productsTable = new ProductsTable();
+            IsDatabaseEnabled = false;
+            _productsTable.Products.CollectionChanged += (sender, args) => RebuildTable(); 
             RebuildTable();
         }
         

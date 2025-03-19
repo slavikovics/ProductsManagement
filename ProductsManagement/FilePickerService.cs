@@ -2,6 +2,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using Model;
 
 namespace ProductsManagement;
 

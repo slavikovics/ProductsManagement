@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace ProductsManagement;
+namespace Model;
 
 public class ProductsContext : DbContext
 {

@@ -5,7 +5,7 @@ using System.Xml;
 using Avalonia.Platform.Storage;
 using Exception = System.Exception;
 
-namespace ProductsManagement;
+namespace Model;
 
 public class ProductsTable
 {
@@ -16,8 +16,6 @@ public class ProductsTable
     private readonly string _xmlPath; 
     
     private XmlDocument _xmlDoc;
-
-    private bool _autoSave = false;
 
     public ProductsTable(string xmlPath = "")
     {
@@ -68,13 +66,6 @@ public class ProductsTable
                 throw new Exception("Cannot read product from xml file.");
             }
         }
-
-        Products.CollectionChanged += UpdateXmlFile;
-    }
-
-    private void UpdateXmlFile(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        //if (_autoSave) SaveXmlFile(_xmlPath);
     }
 
     private void UpdateDatabaseContext(object? sender, NotifyCollectionChangedEventArgs e)
