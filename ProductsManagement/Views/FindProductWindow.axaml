@@ -8,7 +8,10 @@
         x:DataType="viewModels:FindProductViewModel"
         Background="#666A86"
         Title="Найти товар">
-        <Grid>
+    <Design.DataContext>
+        <viewModels:FindProductViewModel/>
+    </Design.DataContext>
+    <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
