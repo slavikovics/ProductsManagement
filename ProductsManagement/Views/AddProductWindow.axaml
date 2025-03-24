@@ -10,7 +10,7 @@
         Background="#666A86"
         x:DataType="viewModels:AddProductViewModel"
         FontFamily="Montserrat"
-        Title="AddProductWindow">
+        Title="Добавить товар">
     <Design.DataContext>
         <viewModels:AddProductViewModel/>
     </Design.DataContext>
@@ -52,6 +52,7 @@
                  Grid.Row="1" 
                  Margin="5" 
                  TextChanged="TextChanged"
+                 Watermark="Название товара"
                  Text="{Binding Name}"/>
         
         <TextBlock Grid.Column="0" 
@@ -67,6 +68,7 @@
                  Grid.Row="2" 
                  Margin="5" 
                  TextChanged="TextChanged"
+                 Watermark="Название производителя"
                  Text="{Binding ManufacturerName}"/>
         
         <TextBlock Grid.Column="0" 
@@ -82,6 +84,7 @@
                  Grid.Row="3" 
                  Margin="5" 
                  TextChanged="TextChanged"
+                 Watermark="УНП производителя"
                  Text="{Binding ManufacturerUnp}"/>
         
         <TextBlock Grid.Column="0" 
@@ -97,6 +100,7 @@
                  Grid.Row="4" 
                  Margin="5" 
                  TextChanged="TextChanged"
+                 Watermark="Количество"
                  Text="{Binding StorageQuantity}"/>
         
         <TextBlock Grid.Column="0"
@@ -112,6 +116,7 @@
                  Grid.Row="5" 
                  Margin="5" 
                  TextChanged="TextChanged"
+                 Watermark="Адрес"
                  Text="{Binding Address}"/>
         
         <Button Grid.Column="0" 

@@ -9,15 +9,15 @@ namespace ProductsManagement.ViewModels;
 
 public partial class AddProductViewModel : ViewModelBase
 {
-    [ObservableProperty] private string _name = "название";
+    [ObservableProperty] private string _name = "";
 
-    [ObservableProperty] private string _manufacturerName = "название производителя";
+    [ObservableProperty] private string _manufacturerName = "";
 
-    [ObservableProperty] private string _manufacturerUnp = "унп производителя";
+    [ObservableProperty] private string _manufacturerUnp = "";
 
-    [ObservableProperty] private string _storageQuantity = "количество";
+    [ObservableProperty] private string _storageQuantity = "";
 
-    [ObservableProperty] private string _address = "адрес";
+    [ObservableProperty] private string _address = "";
 
     private readonly ObservableCollection<Product> _products;
 
