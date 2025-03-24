@@ -172,6 +172,16 @@ namespace ProductsManagement.ViewModels
         }
 
         [RelayCommand]
+        public void FindProduct()
+        {
+            FindProductWindow findProductWindow = new FindProductWindow
+            {
+                
+            };
+            findProductWindow.Show();
+        }
+
+        [RelayCommand]
         public void NextPage()
         {
             if (SelectedPageNumber >= LastPageNumber) return;

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using Model;
 using ProductsManagement.ViewModels;
 
 namespace ProductsManagement.Views
@@ -12,6 +13,7 @@ namespace ProductsManagement.Views
         public MainWindow()
         {
             InitializeComponent();
+            ExampleData data = new ExampleData();
             this.DataContext = new MainWindowViewModel();
             Debug.WriteLine(this.DataContext != null ? "DataContext is set." : "DataContext is null.");
         }

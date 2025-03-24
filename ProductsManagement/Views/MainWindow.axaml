@@ -42,7 +42,8 @@
                             Content="Удалить товар"/>
             
                     <Button Margin="5" 
-                            Content="Найти товар"/>
+                            Content="Найти товар"
+                            Command="{Binding FindProduct}"/>
             
                     <Button Margin="5"
                             Content="Загрузить XML"
@@ -87,7 +88,9 @@
                         <DataGridTextColumn Header="УНП производителя" 
                                             Binding="{Binding ManufacturerUnp}"/>
                         <DataGridTextColumn Header="Количество на складе"
-                                            Binding="{Binding StorageQuantity}"></DataGridTextColumn>
+                                            Binding="{Binding StorageQuantity}"/>
+                        <DataGridTextColumn Header="Адрес"
+                                            Binding="{Binding Address}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <TreeDataGrid IsVisible="{Binding IsTreeViewSelected}" 
