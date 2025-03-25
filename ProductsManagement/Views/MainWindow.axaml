@@ -35,7 +35,7 @@
                     Orientation="Horizontal">
             
                     <Button Margin="5" 
-                            Content="Добавить товар" 
+                            Content="{}" 
                             Command="{Binding AddProduct}"/>
             
                     <Button Margin="5"
@@ -58,18 +58,6 @@
                             Content="Редактировать базу данных"
                             IsEnabled="{Binding IsDatabaseEnabled}"
                             Command="{Binding EditDatabase}"/>
-            
-                    <Button Margin="5" 
-                            Content="🌳"
-                            VerticalAlignment="Center"
-                            Command="{Binding SelectTreeView}"
-                            IsEnabled="{Binding IsTableSelected}"/>
-            
-                    <Button Margin="5"
-                            Content="📃"
-                            Command="{Binding SelectTableView}"
-                            IsEnabled="{Binding IsTreeViewSelected}"
-                            VerticalAlignment="Center"/>
             
         </StackPanel>
         
@@ -102,6 +90,8 @@
         </ScrollViewer>
         <Grid Grid.Row="3" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -153,6 +143,24 @@
                        Margin="10"
                        VerticalAlignment="Center"
                        Text="{Binding ProductsCount}"/>
+            
+            <Button Grid.Column="7"
+                    Margin="5" 
+                    VerticalAlignment="Center"
+                    Command="{Binding SelectTreeView}"
+                    IsEnabled="{Binding IsTableSelected}">
+                <Image Height="18" 
+                       Source="{SvgImage /Assets/tree-solid.svg}"/>
+            </Button>
+            
+            <Button Grid.Column="8"
+                    Margin="5"
+                    Command="{Binding SelectTableView}"
+                    IsEnabled="{Binding IsTreeViewSelected}"
+                    VerticalAlignment="Center">
+                <Image Height="18" 
+                       Source="{SvgImage /Assets/table-solid.svg}"/>
+            </Button>
         </Grid>
     </Grid>
 </Window>

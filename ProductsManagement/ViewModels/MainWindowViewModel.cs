@@ -13,13 +13,14 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Identity.Client.Extensions.Msal;
 using Model;
+using ProductsManagement.Assets;
 using ProductsManagement.Views;
 
 namespace ProductsManagement.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        public string Header { get; } = "Управление товарами";
+        [ObservableProperty] private string _header = Resources.;
         
         public ObservableCollection<Product> ProductsPage { get; set; }
         

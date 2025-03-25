@@ -1,11 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
-            
-        </xsd:element>
-    </xsd:schema>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -18,19 +11,19 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="PreviousPage" xml:space="preserve">
-        <value>&lt;</value>
+    <data name="AddProduct" xml:space="preserve">
+        <value>Добавить товар</value>
     </data>
     <data name="NextPage" xml:space="preserve">
         <value>&gt;</value>
     </data>
-    <data name="AddProduct" xml:space="preserve">
-        <value>Add product</value>
-    </data>
-    <data name="RemoveProduct" xml:space="preserve">
-        <value>Remove product</value>
+    <data name="PreviousPage" xml:space="preserve">
+        <value>&lt;</value>
     </data>
     <data name="ProductsManagement" xml:space="preserve">
-        <value>Products management</value>
+        <value>Управление товарами</value>
+    </data>
+    <data name="RemoveProduct" xml:space="preserve">
+        <value>Удалить товар</value>
     </data>
 </root>

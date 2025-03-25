@@ -37,7 +37,6 @@ public partial class FindProductViewModel: ViewModelBase
         {
             Header = "Удалить товар";
             IsDeletingEnabled = true;
-            
         }
     }
 
