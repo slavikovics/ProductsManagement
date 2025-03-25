@@ -54,7 +54,7 @@ public partial class FindProductViewModel: ViewModelBase
 
         if (deletion)
         {
-            Header = "Удалить товар";
+            Header = Resources.RemoveProductRes;
             IsDeletingEnabled = true;
         }
     }

@@ -13,11 +13,11 @@ public class FilePicker
         var storageProvider = parent.StorageProvider;
         var files = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Выберите файл",
+            Title = "Open file",
             AllowMultiple = false,
             FileTypeFilter =
             [
-                new FilePickerFileType("XML файлы") {Patterns = ["*.xml", "*.XML"] }
+                new FilePickerFileType("XML files") {Patterns = ["*.xml", "*.XML"] }
             ]
         });
 
@@ -30,12 +30,12 @@ public class FilePicker
         var storageProvider = parent.StorageProvider;
         var file = await storageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Сохранить XML",
+            Title = "Save XML",
             DefaultExtension = "*.xml",
             SuggestedFileName = "your_products.xml",
             FileTypeChoices = 
             [
-                new FilePickerFileType("XML файлы") {Patterns = ["*.xml", "*.XML"] }
+                new FilePickerFileType("XML files") {Patterns = ["*.xml", "*.XML"] }
             ]
         });
 

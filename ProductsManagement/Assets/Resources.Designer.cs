@@ -178,5 +178,11 @@ namespace ProductsManagement.Assets {
                 return ResourceManager.GetString("TotalProducts", resourceCulture);
             }
         }
+        
+        internal static string RemoveProducts {
+            get {
+                return ResourceManager.GetString("RemoveProducts", resourceCulture);
+            }
+        }
     }
 }

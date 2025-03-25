@@ -35,36 +35,57 @@ public class ProductsTable
 
     private void LoadProductsFromXml()
     {
-        _xmlDoc = new XmlDocument();
-        _xmlDoc.Load(_xmlPath);
         Products = new ObservableCollection<Product>();
-        
-        XmlNodeList? productNodes = _xmlDoc.SelectNodes("/Products/Product");
-
-        if (productNodes == null)
+        try
         {
-            LoadProductsFromDatabase();
-            return;
+            using (XmlReader reader = XmlReader.Create(_xmlPath))
+            {
+                Product? newProduct = null;
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name)
+                        {
+                            case "Product":
+                                newProduct = new Product();
+                                break;
+                            case "Name":
+                                if (reader.Read() && newProduct != null)
+                                    newProduct.Name = reader.Value;
+                                break;
+                            case "ManufacturerName":
+                                if (reader.Read() && newProduct != null)
+                                    newProduct.ManufacturerName = reader.Value;
+                                break;
+                            case "ManufacturerUnp":
+                                if (reader.Read() && newProduct != null)
+                                    newProduct.ManufacturerUnp = reader.Value;
+                                break;
+                            case "StorageQuantity":
+                                if (reader.Read() && newProduct != null)
+                                    newProduct.StorageQuantity = Convert.ToInt32(reader.Value);
+                                break;
+                            case "Address":
+                                if (reader.Read() && newProduct != null)
+                                    newProduct.Address = reader.Value;
+                                break;
+                        }
+                    }
+                    else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Product")
+                    {
+                        if (newProduct != null)
+                        {
+                            Products.Add(newProduct);
+                        }
+                    }
+                }
+            }
         }
         
-        foreach (XmlNode productNode in productNodes)
+        catch (Exception ex)
         {
-            try
-            {
-                Product newProduct = new Product
-                {
-                    Name = productNode["Name"].InnerText,
-                    ManufacturerName = productNode["ManufacturerName"].InnerText,
-                    ManufacturerUnp = productNode["ManufacturerUnp"].InnerText,
-                    StorageQuantity = Convert.ToInt32(productNode["StorageQuantity"].InnerText),
-                    Address = productNode["Address"].InnerText
-                };
-                Products.Add(newProduct);
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Cannot read product from xml file.");
-            }
+            throw new Exception("Cannot read product from XML file.", ex);
         }
     }
 
