@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.IdentityModel.Tokens;
 using Model;
 using ProductsManagement.Assets;
 
@@ -80,7 +81,22 @@ public partial class FindProductViewModel: ViewModelBase
                             x.ManufacturerName.Contains(ManufacturerName) &&
                             x.ManufacturerUnp.Contains(ManufacturerUnp) &&
                             x.Address.Contains(Address)).ToList();
-        } 
+        }
+
+        var nameSelection = foundProducts.Where(x => x.Name == Name).ToList();
+        var manufacturerSelection = foundProducts.Where(x => x.ManufacturerName == ManufacturerName).ToList();
+
+        if (!nameSelection.IsNullOrEmpty())
+        {
+            foreach (var product in nameSelection) FoundProducts.Add(product);
+            return;
+        }
+
+        if (!manufacturerSelection.IsNullOrEmpty())
+        {
+            foreach (var product in manufacturerSelection) FoundProducts.Add(product);
+            return;
+        }
 
         foreach (var product in foundProducts) FoundProducts.Add(product);
     }
