@@ -23,44 +23,54 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Column="0" 
+            <StackPanel Grid.Row="0"
+                        Grid.Column="0" 
                         Margin="10">
                 <TextBlock Margin="10"
                            Text="Название товара"/>
                 <TextBox Margin="10"
                          Watermark="Название товара"
+                         Text="{Binding Name}"
                          TextChanged="TextBoxOnTextChanged"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" 
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1" 
                         Margin="10">
                 <TextBlock Margin="10"
                            Text="Название производителя"/>
                 <TextBox Margin="10"
                          Watermark="Название производителя"
+                         Text="{Binding ManufacturerName}"
                          TextChanged="TextBoxOnTextChanged"/>
             </StackPanel>
-            <StackPanel Grid.Column="2" 
+            <StackPanel Grid.Row="0"
+                        Grid.Column="2" 
                         Margin="10">
                 <TextBlock Margin="10"
                            Text="УНП производителя"/>
                 <TextBox Margin="10"
                          Watermark="УНП производителя"
+                         Text="{Binding ManufacturerUnp}"
                          TextChanged="TextBoxOnTextChanged"/>
             </StackPanel>
-            <StackPanel Grid.Column="3" 
+            <StackPanel Grid.Row="0"
+                        Grid.Column="3" 
                         Margin="10">
                 <TextBlock Margin="10"
                            Text="Количество на складе"/>
                 <TextBox Margin="10"
                          Watermark="Количество на складе"
+                         Text="{Binding StorageQuantity}"
                          TextChanged="TextBoxOnTextChanged"/>
             </StackPanel>
-            <StackPanel Grid.Column="4" 
+            <StackPanel Grid.Row="0"
+                        Grid.Column="4" 
                         Margin="10">
                 <TextBlock Margin="10"
                            Text="Адрес"/>
                 <TextBox Margin="10"
                          Watermark="Адрес"
+                         Text="{Binding Address}"
                          TextChanged="TextBoxOnTextChanged"/>
             </StackPanel>
         

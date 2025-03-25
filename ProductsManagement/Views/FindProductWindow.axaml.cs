@@ -11,6 +11,7 @@ public partial class FindProductWindow : Window
     public FindProductWindow()
     {
         InitializeComponent();
+        this.DataContext = new FindProductViewModel();
     }
 
     private void TextBoxOnTextChanged(object? sender, TextChangedEventArgs e)

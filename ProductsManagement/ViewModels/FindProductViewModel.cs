@@ -17,24 +17,26 @@ public partial class FindProductViewModel: ViewModelBase
 
     [ObservableProperty] private string _address = "";
 
-    public ProductsContext Context { get; }
+    private ProductsContext _context { get; }
 
     public ObservableCollection<Product> ProductsPage { get; set; }
     
     public FindProductViewModel()
     {
-        Context = new ProductsContext();
+        _context = new ProductsContext();
         ProductsPage = new ObservableCollection<Product>();
     }
 
     public void Find()
     {
         ProductsPage.Clear();
-        var foundProducts = Context.Products.Where(x => x.Name.Contains(Name))
-            .Where(x => x.ManufacturerName.Contains(ManufacturerName))
-            .Where(x => x.ManufacturerUnp.Contains(ManufacturerUnp))
-            .Where(x => x.Address.Contains(Address))
-            .Where(x => x.StorageQuantity.ToString().Contains(StorageQuantity));
+
+        var foundProducts = _context.Products
+            .Where(x => x.Name.Contains(Name) &&
+                        x.ManufacturerName.Contains(ManufacturerName) &&
+                        x.ManufacturerUnp.Contains(ManufacturerUnp) &&
+                        x.Address.Contains(Address) &&
+                        x.StorageQuantity.ToString().Contains(StorageQuantity)).ToList();
 
         foreach (var product in foundProducts) ProductsPage.Add(product);
     }
