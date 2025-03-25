@@ -133,7 +133,7 @@
             
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Text="{Binding TotalSelected}"/>
+                       Text="{Binding TotalProducts}"/>
             
             <TextBlock Text="{Binding FoundProducts.Count}"
                        HorizontalAlignment="Center"

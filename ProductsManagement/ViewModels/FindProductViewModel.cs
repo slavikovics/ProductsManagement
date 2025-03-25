@@ -11,7 +11,9 @@ namespace ProductsManagement.ViewModels;
 
 public partial class FindProductViewModel: ViewModelBase
 {
-    [ObservableProperty] private string _header = "Найти товары";
+    [ObservableProperty] private string _header = Resources.FindProducts;
+    
+    [ObservableProperty] private string _totalProducts = Resources.TotalProducts;
     
     [ObservableProperty] private string _nameContent = Resources.Name;
         

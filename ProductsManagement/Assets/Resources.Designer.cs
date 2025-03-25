@@ -160,5 +160,23 @@ namespace ProductsManagement.Assets {
                 return ResourceManager.GetString("DeleteChosenProducts", resourceCulture);
             }
         }
+        
+        internal static string FindProducts {
+            get {
+                return ResourceManager.GetString("FindProducts", resourceCulture);
+            }
+        }
+        
+        internal static string DeleteProducts {
+            get {
+                return ResourceManager.GetString("DeleteProducts", resourceCulture);
+            }
+        }
+        
+        internal static string TotalProducts {
+            get {
+                return ResourceManager.GetString("TotalProducts", resourceCulture);
+            }
+        }
     }
 }

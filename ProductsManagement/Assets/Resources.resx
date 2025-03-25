@@ -66,4 +66,13 @@
     <data name="DeleteChosenProducts" xml:space="preserve">
         <value>Delete chosen products</value>
     </data>
+    <data name="FindProducts" xml:space="preserve">
+        <value>Find products</value>
+    </data>
+    <data name="DeleteProducts" xml:space="preserve">
+        <value>Delete products</value>
+    </data>
+    <data name="TotalProducts" xml:space="preserve">
+        <value>Total products:</value>
+    </data>
 </root>
