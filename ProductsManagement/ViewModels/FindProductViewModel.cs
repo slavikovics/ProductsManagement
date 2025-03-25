@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -30,13 +32,25 @@ public partial class FindProductViewModel: ViewModelBase
     public void Find()
     {
         ProductsPage.Clear();
+        List<Product> foundProducts;
 
-        var foundProducts = _context.Products
-            .Where(x => x.Name.Contains(Name) &&
-                        x.ManufacturerName.Contains(ManufacturerName) &&
-                        x.ManufacturerUnp.Contains(ManufacturerUnp) &&
-                        x.Address.Contains(Address) &&
-                        x.StorageQuantity.ToString().Contains(StorageQuantity)).ToList();
+        if (StorageQuantity != String.Empty)
+        {
+            foundProducts = _context.Products
+                .Where(x => x.Name.Contains(Name) &&
+                            x.ManufacturerName.Contains(ManufacturerName) &&
+                            x.ManufacturerUnp.Contains(ManufacturerUnp) &&
+                            x.Address.Contains(Address) &&
+                            x.StorageQuantity.ToString() == StorageQuantity).ToList();
+        }
+        else
+        {
+            foundProducts = _context.Products
+                .Where(x => x.Name.Contains(Name) &&
+                            x.ManufacturerName.Contains(ManufacturerName) &&
+                            x.ManufacturerUnp.Contains(ManufacturerUnp) &&
+                            x.Address.Contains(Address)).ToList();
+        } 
 
         foreach (var product in foundProducts) ProductsPage.Add(product);
     }
