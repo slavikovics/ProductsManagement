@@ -11,7 +11,7 @@ public class HierarchicalTreeDataGridItem
         Children = new List<HierarchicalTreeDataGridItem>();
         Children.Add(new HierarchicalTreeDataGridItem(Resources.ManufacturerName, product.ManufacturerName));
         Children.Add(new HierarchicalTreeDataGridItem(Resources.ManufacturerUNP, product.ManufacturerUnp));
-        Children.Add(new HierarchicalTreeDataGridItem(Resources.StorageQuantity, product.StorageQuantity.ToString()));
+        Children.Add(new HierarchicalTreeDataGridItem(Resources.StorageQuantity, product.StorageQuantityRecord));
         Children.Add(new HierarchicalTreeDataGridItem(Resources.Address, product.Address));
     }
 

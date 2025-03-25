@@ -14,6 +14,8 @@ public class Product
     public string ManufacturerUnp {get; set;}
     
     public int StorageQuantity {get; set;}
+
+    public string StorageQuantityRecord => GetQuantityStringForTable();
     
     public string Address {get; set;}
 
@@ -24,6 +26,12 @@ public class Product
         ManufacturerUnp = manufacturerUnp;
         StorageQuantity = storageQuantity;
         Address = address;
+    }
+
+    public string GetQuantityStringForTable()
+    {
+        if (StorageQuantity != 0) return StorageQuantity.ToString();
+        return "out of stock";
     }
 
     public Product()

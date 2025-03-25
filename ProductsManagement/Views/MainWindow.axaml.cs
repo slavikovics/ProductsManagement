@@ -14,7 +14,7 @@ namespace ProductsManagement.Views
         {
             InitializeComponent();
             ExampleData data = new ExampleData();
-            this.DataContext = new MainWindowViewModel();
+            this.DataContext = new MainWindowViewModel(this);
             Debug.WriteLine(this.DataContext != null ? "DataContext is set." : "DataContext is null.");
         }
 

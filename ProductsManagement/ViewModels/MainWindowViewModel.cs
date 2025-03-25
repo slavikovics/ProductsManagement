@@ -88,6 +88,8 @@ namespace ProductsManagement.ViewModels
         
         private readonly FilePicker _filePicker = new FilePicker();
 
+        private Window _mainWindow;
+
         public List<string> ComboboxItems { get; } = ["5", "10", "15", "20"];
 
         private Dictionary<int, int> ProductsPerPageDictionary { get; } = new Dictionary<int, int>()
@@ -122,9 +124,10 @@ namespace ProductsManagement.ViewModels
             };
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(Window window)
         {
             _productsTable = new ProductsTable();
+            _mainWindow = window;
             _productsTable.Products.CollectionChanged += (sender, args) => RebuildTable();
             ProductsPage = new ObservableCollection<Product>();
             
@@ -192,6 +195,7 @@ namespace ProductsManagement.ViewModels
                 DataContext = new AddProductViewModel(_productsTable.Products)
             };
             addProductWindow.Show();
+            _mainWindow.Closed += (sender, args) => addProductWindow.Close();
         }
 
         [RelayCommand]
@@ -199,6 +203,7 @@ namespace ProductsManagement.ViewModels
         {
             FindProductWindow findProductWindow = new FindProductWindow(_productsTable);
             findProductWindow.Show();
+            _mainWindow.Closed += (sender, args) => findProductWindow.Close();
         }
 
         [RelayCommand]
@@ -206,6 +211,7 @@ namespace ProductsManagement.ViewModels
         {
             FindProductWindow findProductWindow = new FindProductWindow(_productsTable, true);
             findProductWindow.Show();
+            _mainWindow.Closed += (sender, args) => findProductWindow.Close();
         }
 
         [RelayCommand]
@@ -241,3 +247,4 @@ namespace ProductsManagement.ViewModels
         }
     }
 }
+

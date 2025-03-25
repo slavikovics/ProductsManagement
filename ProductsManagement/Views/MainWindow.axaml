@@ -70,17 +70,23 @@
                           CanUserReorderColumns="True"
                           CanUserResizeColumns="True">
                     <DataGrid.Columns>
+                        
                         <DataGridTextColumn Header="{Binding NameContent}" 
                                             Binding="{Binding Name}"/>
+                        
                         <DataGridTextColumn Header="{Binding ManufacturerNameContent}" 
                                             Binding="{Binding ManufacturerName}"/>
+                        
                         <DataGridTextColumn Header="{Binding ManufacturerUnpContent}" 
                                             Binding="{Binding ManufacturerUnp}"/>
+                        
                         <DataGridTextColumn Header="{Binding StorageQuantity}"
-                                            Binding="{Binding StorageQuantity}"/>
+                                            Binding="{Binding StorageQuantityRecord}"/>
+                        
                         <DataGridTextColumn Header="{Binding Address}"
                                             Binding="{Binding Address}"/>
                     </DataGrid.Columns>
+                    
                 </DataGrid>
                 <TreeDataGrid IsVisible="{Binding IsTreeViewSelected}" 
                               Source="{Binding HierarchicalTreeDataGridSource}">
