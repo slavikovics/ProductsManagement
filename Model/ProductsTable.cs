@@ -126,7 +126,7 @@ public class ProductsTable
             productElement.AppendChild(quantityElement);
             
             XmlElement addressElement = xmlDoc.CreateElement("Address");
-            addressElement.InnerText = product.StorageQuantity.ToString();
+            addressElement.InnerText = product.Address;
             productElement.AppendChild(addressElement);
 
             
