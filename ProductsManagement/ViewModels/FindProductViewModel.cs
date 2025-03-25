@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Model;
 
 namespace ProductsManagement.ViewModels;
 
 public partial class FindProductViewModel: ViewModelBase
 {
+    [ObservableProperty] private string _header = "Найти товары";
+    
     [ObservableProperty] private string _name = "";
 
     [ObservableProperty] private string _manufacturerName = "";
@@ -18,25 +21,34 @@ public partial class FindProductViewModel: ViewModelBase
     [ObservableProperty] private string _storageQuantity = "";
 
     [ObservableProperty] private string _address = "";
-
-    private ProductsContext _context { get; }
-
-    public ObservableCollection<Product> ProductsPage { get; set; }
     
-    public FindProductViewModel()
+    [ObservableProperty] private bool _isDeletingEnabled = false;
+
+    private readonly ProductsTable _productsTable;
+
+    public ObservableCollection<Product> FoundProducts { get; set; }
+    
+    public FindProductViewModel(ProductsTable table, bool deletion = false)
     {
-        _context = new ProductsContext();
-        ProductsPage = new ObservableCollection<Product>();
+        _productsTable = table;
+        FoundProducts = new ObservableCollection<Product>();
+
+        if (deletion)
+        {
+            Header = "Удалить товар";
+            IsDeletingEnabled = true;
+            
+        }
     }
 
     public void Find()
     {
-        ProductsPage.Clear();
+        FoundProducts.Clear();
         List<Product> foundProducts;
 
         if (StorageQuantity != String.Empty)
         {
-            foundProducts = _context.Products
+            foundProducts = _productsTable.Products
                 .Where(x => x.Name.Contains(Name) &&
                             x.ManufacturerName.Contains(ManufacturerName) &&
                             x.ManufacturerUnp.Contains(ManufacturerUnp) &&
@@ -45,13 +57,20 @@ public partial class FindProductViewModel: ViewModelBase
         }
         else
         {
-            foundProducts = _context.Products
+            foundProducts = _productsTable.Products
                 .Where(x => x.Name.Contains(Name) &&
                             x.ManufacturerName.Contains(ManufacturerName) &&
                             x.ManufacturerUnp.Contains(ManufacturerUnp) &&
                             x.Address.Contains(Address)).ToList();
         } 
 
-        foreach (var product in foundProducts) ProductsPage.Add(product);
+        foreach (var product in foundProducts) FoundProducts.Add(product);
+    }
+
+    [RelayCommand]
+    public void DeleteSelection()
+    {
+        foreach (var product in FoundProducts) _productsTable.Products.Remove(product);
+        Find();
     }
 }

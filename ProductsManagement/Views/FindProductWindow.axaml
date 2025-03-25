@@ -7,7 +7,7 @@
         x:Class="ProductsManagement.Views.FindProductWindow"
         x:DataType="viewModels:FindProductViewModel"
         Background="#666A86"
-        Title="Найти товар">
+        Title="{Binding Header}">
     <Design.DataContext>
         <viewModels:FindProductViewModel/>
     </Design.DataContext>
@@ -22,6 +22,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"
                         Grid.Column="0" 
@@ -78,7 +79,7 @@
     <ScrollViewer Grid.ColumnSpan="5" Grid.Column="0" Grid.Row="1" Margin="10">
         <StackPanel>
             <DataGrid IsReadOnly="True" 
-                      ItemsSource="{Binding ProductsPage}"
+                      ItemsSource="{Binding FoundProducts}"
                       CanUserReorderColumns="True"
                       CanUserResizeColumns="True">
                 <DataGrid.Columns>
@@ -96,5 +97,24 @@
             </DataGrid>
         </StackPanel>
     </ScrollViewer>
+        
+        <StackPanel Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Grid.Row="2"
+                    Margin="10"
+                    Orientation="Horizontal">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                Text="Всего выбрано: "/>
+            <TextBlock Text="{Binding FoundProducts.Count}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            <Button Command="{Binding DeleteSelection}"
+                    IsVisible="{Binding IsDeletingEnabled}"
+                    Margin="10"
+                    Content="Удалить выбранные товары"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
+        </StackPanel>
         </Grid>
 </Window>

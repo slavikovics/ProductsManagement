@@ -174,10 +174,14 @@ namespace ProductsManagement.ViewModels
         [RelayCommand]
         public void FindProduct()
         {
-            FindProductWindow findProductWindow = new FindProductWindow
-            {
-                
-            };
+            FindProductWindow findProductWindow = new FindProductWindow(_productsTable);
+            findProductWindow.Show();
+        }
+
+        [RelayCommand]
+        public void DeleteProduct()
+        {
+            FindProductWindow findProductWindow = new FindProductWindow(_productsTable, true);
             findProductWindow.Show();
         }
 

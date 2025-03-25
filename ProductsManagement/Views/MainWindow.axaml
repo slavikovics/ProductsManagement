@@ -39,7 +39,8 @@
                             Command="{Binding AddProduct}"/>
             
                     <Button Margin="5"
-                            Content="Удалить товар"/>
+                            Content="Удалить товар"
+                            Command="{Binding DeleteProduct}"/>
             
                     <Button Margin="5" 
                             Content="Найти товар"
