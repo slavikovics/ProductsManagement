@@ -88,7 +88,7 @@ namespace ProductsManagement.ViewModels
         
         private readonly FilePicker _filePicker = new FilePicker();
 
-        private Window _mainWindow;
+        private readonly Window _mainWindow;
 
         public List<string> ComboboxItems { get; } = ["5", "10", "15", "20"];
 
