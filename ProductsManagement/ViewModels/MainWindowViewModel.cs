@@ -231,6 +231,20 @@ namespace ProductsManagement.ViewModels
         }
 
         [RelayCommand]
+        public void GoToFirstPage()
+        {
+            SelectedPageNumber = 1;
+            RebuildTable();
+        }
+
+        [RelayCommand]
+        public void GoToLastPage()
+        {
+            SelectedPageNumber = LastPageNumber;
+            RebuildTable();
+        }
+
+        [RelayCommand]
         public void EditDatabase()
         {
             _productsTable = new ProductsTable();
