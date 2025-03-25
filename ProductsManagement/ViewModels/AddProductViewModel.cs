@@ -4,11 +4,24 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Model;
+using ProductsManagement.Assets;
 
 namespace ProductsManagement.ViewModels;
 
 public partial class AddProductViewModel : ViewModelBase
 {
+    [ObservableProperty] private string _nameContent = Resources.Name;
+        
+    [ObservableProperty] private string _manufacturerNameContent = Resources.ManufacturerName;
+        
+    [ObservableProperty] private string _manufacturerUnpContent = Resources.ManufacturerUNP;
+        
+    [ObservableProperty] private string _addressContent = Resources.Address;
+        
+    [ObservableProperty] private string _storageQuantityContent = Resources.StorageQuantity;
+    
+    [ObservableProperty] private string _addProductContent = Resources.AddProductRes;
+    
     [ObservableProperty] private string _name = "";
 
     [ObservableProperty] private string _manufacturerName = "";

@@ -8,7 +8,7 @@
         x:Class="ProductsManagement.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Управление товарами"
+        Title="{Binding Header}"
         FontFamily="Montserrat"
         Background="#666A86">
     <Design.DataContext>
@@ -35,27 +35,27 @@
                     Orientation="Horizontal">
             
                     <Button Margin="5" 
-                            Content="{}" 
+                            Content="{Binding AddProductContent}" 
                             Command="{Binding AddProduct}"/>
             
                     <Button Margin="5"
-                            Content="Удалить товар"
+                            Content="{Binding RemoveProductContent}"
                             Command="{Binding DeleteProduct}"/>
             
                     <Button Margin="5" 
-                            Content="Найти товар"
+                            Content="{Binding FindProductContent}"
                             Command="{Binding FindProduct}"/>
             
                     <Button Margin="5"
-                            Content="Загрузить XML"
+                            Content="{Binding LoadXmlContent}"
                             Click="OpenFileDialog"/>
             
                     <Button Margin="5"
-                            Content="Сохранить XML"
+                            Content="{Binding SaveXmlContent}"
                             Click="SaveFileDialog"/>
                     
                     <Button Margin="5"
-                            Content="Редактировать базу данных"
+                            Content="{Binding EditDatabaseContent}"
                             IsEnabled="{Binding IsDatabaseEnabled}"
                             Command="{Binding EditDatabase}"/>
             
@@ -70,15 +70,15 @@
                           CanUserReorderColumns="True"
                           CanUserResizeColumns="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Название товара" 
+                        <DataGridTextColumn Header="{Binding NameContent}" 
                                             Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="Название производителя" 
+                        <DataGridTextColumn Header="{Binding ManufacturerNameContent}" 
                                             Binding="{Binding ManufacturerName}"/>
-                        <DataGridTextColumn Header="УНП производителя" 
+                        <DataGridTextColumn Header="{Binding ManufacturerUnpContent}" 
                                             Binding="{Binding ManufacturerUnp}"/>
-                        <DataGridTextColumn Header="Количество на складе"
+                        <DataGridTextColumn Header="{Binding StorageQuantity}"
                                             Binding="{Binding StorageQuantity}"/>
-                        <DataGridTextColumn Header="Адрес"
+                        <DataGridTextColumn Header="{Binding Address}"
                                             Binding="{Binding Address}"/>
                     </DataGrid.Columns>
                 </DataGrid>

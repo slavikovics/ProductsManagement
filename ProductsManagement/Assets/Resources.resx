@@ -27,10 +27,43 @@
     <data name="AddProduct" xml:space="preserve">
         <value>Add product</value>
     </data>
+    <data name="Header" xml:space="preserve">
+        <value>Products management</value>
+    </data>
     <data name="RemoveProduct" xml:space="preserve">
         <value>Remove product</value>
     </data>
-    <data name="ProductsManagement" xml:space="preserve">
-        <value>Products management</value>
+    <data name="FindProduct" xml:space="preserve">
+        <value>Find product</value>
+    </data>
+    <data name="SaveXml" xml:space="preserve">
+        <value>Save XML</value>
+    </data>
+    <data name="LoadXml" xml:space="preserve">
+        <value>Load XML</value>
+    </data>
+    <data name="EditDatabase" xml:space="preserve">
+        <value>Edit database</value>
+    </data>
+    <data name="Name" xml:space="preserve">
+        <value>Product name</value>
+    </data>
+    <data name="ManufacturerName" xml:space="preserve">
+        <value>Manufacturer name</value>
+    </data>
+    <data name="StorageQuantity" xml:space="preserve">
+        <value>Storage quantity</value>
+    </data>
+    <data name="Address" xml:space="preserve">
+        <value>Address</value>
+    </data>
+    <data name="ManufacturerUNP" xml:space="preserve">
+        <value>Manufacturer UNP</value>
+    </data>
+    <data name="Selected" xml:space="preserve">
+        <value>Total selected:</value>
+    </data>
+    <data name="DeleteChosenProducts" xml:space="preserve">
+        <value>Delete chosen products</value>
     </data>
 </root>

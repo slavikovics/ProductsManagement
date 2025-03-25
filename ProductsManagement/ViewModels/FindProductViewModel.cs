@@ -5,12 +5,29 @@ using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Model;
+using ProductsManagement.Assets;
 
 namespace ProductsManagement.ViewModels;
 
 public partial class FindProductViewModel: ViewModelBase
 {
     [ObservableProperty] private string _header = "Найти товары";
+    
+    [ObservableProperty] private string _nameContent = Resources.Name;
+        
+    [ObservableProperty] private string _manufacturerNameContent = Resources.ManufacturerName;
+        
+    [ObservableProperty] private string _manufacturerUnpContent = Resources.ManufacturerUNP;
+        
+    [ObservableProperty] private string _addressContent = Resources.Address;
+        
+    [ObservableProperty] private string _storageQuantityContent = Resources.StorageQuantity;
+    
+    [ObservableProperty] private string _addProductContent = Resources.AddProductRes;
+    
+    [ObservableProperty] private string _totalSelected = Resources.TotalSelected;
+    
+    [ObservableProperty] private string _deleteChosenProducts = Resources.DeleteChosenProducts;
     
     [ObservableProperty] private string _name = "";
 

@@ -20,7 +20,29 @@ namespace ProductsManagement.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        [ObservableProperty] private string _header = Resources.;
+        [ObservableProperty] private string _header = Resources.Header;
+        
+        [ObservableProperty] private string _addProductContent = Resources.AddProductRes;
+        
+        [ObservableProperty] private string _removeProductContent = Resources.RemoveProductRes;
+        
+        [ObservableProperty] private string _findProductContent = Resources.FindProductRes;
+        
+        [ObservableProperty] private string _saveXmlContent = Resources.SaveXmlRes;
+        
+        [ObservableProperty] private string _loadXmlContent = Resources.LoadXmlRes;
+        
+        [ObservableProperty] private string _editDatabaseContent = Resources.EditDatabaseRes;
+        
+        [ObservableProperty] private string _nameContent = Resources.Name;
+        
+        [ObservableProperty] private string _manufacturerNameContent = Resources.ManufacturerName;
+        
+        [ObservableProperty] private string _manufacturerUnpContent = Resources.ManufacturerUNP;
+        
+        [ObservableProperty] private string _address = Resources.Address;
+        
+        [ObservableProperty] private string _storageQuantity = Resources.StorageQuantity;
         
         public ObservableCollection<Product> ProductsPage { get; set; }
         

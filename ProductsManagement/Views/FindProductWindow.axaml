@@ -19,102 +19,133 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+        
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+        
             <StackPanel Grid.Row="0"
                         Grid.Column="0" 
                         Margin="10">
+                
                 <TextBlock Margin="10"
-                           Text="Название товара"/>
+                           Text="{Binding NameContent}"/>
+                
                 <TextBox Margin="10"
-                         Watermark="Название товара"
+                         Watermark="{Binding NameContent}"
                          Text="{Binding Name}"
                          TextChanged="TextBoxOnTextChanged"/>
+                
             </StackPanel>
+        
             <StackPanel Grid.Row="0"
                         Grid.Column="1" 
                         Margin="10">
+                
                 <TextBlock Margin="10"
-                           Text="Название производителя"/>
+                           Text="{Binding ManufacturerNameContent}"/>
+                
                 <TextBox Margin="10"
-                         Watermark="Название производителя"
+                         Watermark="{Binding ManufacturerNameContent}"
                          Text="{Binding ManufacturerName}"
                          TextChanged="TextBoxOnTextChanged"/>
+                
             </StackPanel>
+        
             <StackPanel Grid.Row="0"
                         Grid.Column="2" 
                         Margin="10">
+                
                 <TextBlock Margin="10"
-                           Text="УНП производителя"/>
+                           Text="{Binding ManufacturerUnpContent}"/>
+                
                 <TextBox Margin="10"
-                         Watermark="УНП производителя"
+                         Watermark="{Binding ManufacturerUnpContent}"
                          Text="{Binding ManufacturerUnp}"
                          TextChanged="TextBoxOnTextChanged"/>
+                
             </StackPanel>
+        
             <StackPanel Grid.Row="0"
                         Grid.Column="3" 
                         Margin="10">
+                
                 <TextBlock Margin="10"
-                           Text="Количество на складе"/>
+                           Text="{Binding StorageQuantityContent}"/>
+                
                 <TextBox Margin="10"
-                         Watermark="Количество на складе"
+                         Watermark="{Binding StorageQuantityContent}"
                          Text="{Binding StorageQuantity}"
                          TextChanged="TextBoxOnTextChanged"/>
+                
             </StackPanel>
+        
             <StackPanel Grid.Row="0"
                         Grid.Column="4" 
                         Margin="10">
+                
                 <TextBlock Margin="10"
-                           Text="Адрес"/>
+                           Text="{Binding AddressContent}"/>
+                
                 <TextBox Margin="10"
-                         Watermark="Адрес"
+                         Watermark="{Binding AddressContent}"
                          Text="{Binding Address}"
                          TextChanged="TextBoxOnTextChanged"/>
+                
             </StackPanel>
         
-    
-    <ScrollViewer Grid.ColumnSpan="5" Grid.Column="0" Grid.Row="1" Margin="10">
-        <StackPanel>
-            <DataGrid IsReadOnly="True" 
-                      ItemsSource="{Binding FoundProducts}"
-                      CanUserReorderColumns="True"
-                      CanUserResizeColumns="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название товара" 
+            <ScrollViewer Grid.ColumnSpan="5" Grid.Column="0" Grid.Row="1" Margin="10">
+                <StackPanel>
+                    <DataGrid IsReadOnly="True" 
+                        ItemsSource="{Binding FoundProducts}"
+                        CanUserReorderColumns="True"
+                        CanUserResizeColumns="True">
+                
+                        <DataGrid.Columns>
+                    
+                            <DataGridTextColumn Header="{Binding ManufacturerNameContent}" 
                                         Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Название производителя" 
+                    
+                            <DataGridTextColumn Header="{Binding ManufacturerNameContent}" 
                                         Binding="{Binding ManufacturerName}"/>
-                    <DataGridTextColumn Header="УНП производителя" 
+                    
+                            <DataGridTextColumn Header="{Binding ManufacturerUnpContent}" 
                                         Binding="{Binding ManufacturerUnp}"/>
-                    <DataGridTextColumn Header="Количество на складе"
+                    
+                            <DataGridTextColumn Header="{Binding StorageQuantityContent}"
                                         Binding="{Binding StorageQuantity}"/>
-                    <DataGridTextColumn Header="Адрес"
+                    
+                            <DataGridTextColumn Header="{Binding AddressContent}"
                                         Binding="{Binding Address}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
-    </ScrollViewer>
+                    
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
         
         <StackPanel Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Grid.Row="2"
                     Margin="10"
                     Orientation="Horizontal">
+            
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                Text="Всего выбрано: "/>
+                       Text="{Binding TotalSelected}"/>
+            
             <TextBlock Text="{Binding FoundProducts.Count}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
+            
             <Button Command="{Binding DeleteSelection}"
                     IsVisible="{Binding IsDeletingEnabled}"
                     Margin="10"
-                    Content="Удалить выбранные товары"
+                    Content="{Binding DeleteChosenProducts}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"/>
+            
         </StackPanel>
-        </Grid>
+    </Grid>
 </Window>

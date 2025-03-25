@@ -76,5 +76,89 @@ namespace ProductsManagement.Assets {
                 return ResourceManager.GetString("PreviousPage", resourceCulture);
             }
         }
+        
+        internal static string Header {
+            get {
+                return ResourceManager.GetString("Header", resourceCulture);
+            }
+        }
+        
+        internal static string AddProductRes {
+            get {
+                return ResourceManager.GetString("AddProduct", resourceCulture);
+            }
+        }
+        
+        internal static string RemoveProductRes {
+            get {
+                return ResourceManager.GetString("RemoveProduct", resourceCulture);
+            }
+        }
+        
+        internal static string FindProductRes {
+            get {
+                return ResourceManager.GetString("FindProduct", resourceCulture);
+            }
+        }
+        
+        internal static string SaveXmlRes {
+            get {
+                return ResourceManager.GetString("SaveXml", resourceCulture);
+            }
+        }
+        
+        internal static string LoadXmlRes {
+            get {
+                return ResourceManager.GetString("LoadXml", resourceCulture);
+            }
+        }
+        
+        internal static string EditDatabaseRes {
+            get {
+                return ResourceManager.GetString("EditDatabase", resourceCulture);
+            }
+        }
+        
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        internal static string ManufacturerName {
+            get {
+                return ResourceManager.GetString("ManufacturerName", resourceCulture);
+            }
+        }
+        
+        internal static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        internal static string StorageQuantity {
+            get {
+                return ResourceManager.GetString("StorageQuantity", resourceCulture);
+            }
+        }
+        
+        internal static string ManufacturerUNP {
+            get {
+                return ResourceManager.GetString("ManufacturerUNP", resourceCulture);
+            }
+        }
+        
+        internal static string TotalSelected {
+            get {
+                return ResourceManager.GetString("TotalSelected", resourceCulture);
+            }
+        }
+        
+        internal static string DeleteChosenProducts {
+            get {
+                return ResourceManager.GetString("DeleteChosenProducts", resourceCulture);
+            }
+        }
     }
 }
