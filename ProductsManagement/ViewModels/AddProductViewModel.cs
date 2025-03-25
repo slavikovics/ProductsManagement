@@ -20,7 +20,7 @@ public partial class AddProductViewModel : ViewModelBase
         
     [ObservableProperty] private string _storageQuantityContent = Resources.StorageQuantity;
     
-    [ObservableProperty] private string _addProductContent = Resources.AddProductRes;
+    [ObservableProperty] private string _addProductContent = Resources.AddProduct;
     
     [ObservableProperty] private string _name = "";
 

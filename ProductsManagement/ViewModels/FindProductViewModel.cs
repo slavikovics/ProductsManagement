@@ -25,7 +25,7 @@ public partial class FindProductViewModel: ViewModelBase
         
     [ObservableProperty] private string _storageQuantityContent = Resources.StorageQuantity;
     
-    [ObservableProperty] private string _addProductContent = Resources.AddProductRes;
+    [ObservableProperty] private string _addProductContent = Resources.AddProduct;
     
     [ObservableProperty] private string _totalSelected = Resources.TotalSelected;
     

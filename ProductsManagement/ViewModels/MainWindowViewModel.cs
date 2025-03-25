@@ -22,17 +22,17 @@ namespace ProductsManagement.ViewModels
     {
         [ObservableProperty] private string _header = Resources.Header;
         
-        [ObservableProperty] private string _addProductContent = Resources.AddProductRes;
+        [ObservableProperty] private string _addProductContent = Resources.AddProduct;
         
         [ObservableProperty] private string _removeProductContent = Resources.RemoveProductRes;
         
-        [ObservableProperty] private string _findProductContent = Resources.FindProductRes;
+        [ObservableProperty] private string _findProductContent = Resources.FindProduct;
         
-        [ObservableProperty] private string _saveXmlContent = Resources.SaveXmlRes;
+        [ObservableProperty] private string _saveXmlContent = Resources.SaveXml;
         
-        [ObservableProperty] private string _loadXmlContent = Resources.LoadXmlRes;
+        [ObservableProperty] private string _loadXmlContent = Resources.LoadXml;
         
-        [ObservableProperty] private string _editDatabaseContent = Resources.EditDatabaseRes;
+        [ObservableProperty] private string _editDatabaseContent = Resources.EditDatabase;
         
         [ObservableProperty] private string _nameContent = Resources.Name;
         
@@ -86,7 +86,7 @@ namespace ProductsManagement.ViewModels
             set => SetProperty(ref _treeDataGrid, value);
         }
         
-        private readonly FilePickerService _filePickerService = new FilePickerService();
+        private readonly FilePicker _filePicker = new FilePicker();
 
         public List<string> ComboboxItems { get; } = ["5", "10", "15", "20"];
 
@@ -116,7 +116,7 @@ namespace ProductsManagement.ViewModels
             {
                 Columns =
                 {
-                    new HierarchicalExpanderColumn<HierarchicalTreeDataGridItem>(new TextColumn<HierarchicalTreeDataGridItem, string>("Название товара", item => item.Name), 
+                    new HierarchicalExpanderColumn<HierarchicalTreeDataGridItem>(new TextColumn<HierarchicalTreeDataGridItem, string>(Resources.Name, item => item.Name), 
                         item => item.Children)
                 }
             };
@@ -150,7 +150,7 @@ namespace ProductsManagement.ViewModels
         [RelayCommand]
         public async Task OpenFileAsync(Window parent)
         {
-            var file = await _filePickerService.OpenFileAsync(parent);
+            var file = await _filePicker.OpenFileAsync(parent);
             if (file == null) return;
 
             IsDatabaseEnabled = true;
@@ -162,7 +162,7 @@ namespace ProductsManagement.ViewModels
         [RelayCommand]
         public async Task SaveFileAsync(Window parent)
         {
-            await _filePickerService.SaveFileAsync(parent, _productsTable);
+            await _filePicker.SaveFileAsync(parent, _productsTable);
         }
 
         private void RebuildTable()

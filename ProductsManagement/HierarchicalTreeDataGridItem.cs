@@ -1,4 +1,7 @@
-﻿namespace Model;
+﻿using System.Collections.Generic;
+using ProductsManagement.Assets;
+
+namespace Model;
 
 public class HierarchicalTreeDataGridItem
 {
@@ -6,10 +9,10 @@ public class HierarchicalTreeDataGridItem
     {
         Name = product.Name;
         Children = new List<HierarchicalTreeDataGridItem>();
-        Children.Add(new HierarchicalTreeDataGridItem("Название производителя", product.ManufacturerName));
-        Children.Add(new HierarchicalTreeDataGridItem("УНП производителя", product.ManufacturerUnp));
-        Children.Add(new HierarchicalTreeDataGridItem("Количество на складе", product.StorageQuantity.ToString()));
-        Children.Add(new HierarchicalTreeDataGridItem("Адрес", product.Address));
+        Children.Add(new HierarchicalTreeDataGridItem(Resources.ManufacturerName, product.ManufacturerName));
+        Children.Add(new HierarchicalTreeDataGridItem(Resources.ManufacturerUNP, product.ManufacturerUnp));
+        Children.Add(new HierarchicalTreeDataGridItem(Resources.StorageQuantity, product.StorageQuantity.ToString()));
+        Children.Add(new HierarchicalTreeDataGridItem(Resources.Address, product.Address));
     }
 
     private HierarchicalTreeDataGridItem(string value, string childValue)

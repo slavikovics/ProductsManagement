@@ -6,7 +6,7 @@ using Model;
 
 namespace ProductsManagement;
 
-public class FilePickerService
+public class FilePicker
 {
     public async Task<IStorageFile?> OpenFileAsync(Window parent)
     {

@@ -83,7 +83,7 @@ namespace ProductsManagement.Assets {
             }
         }
         
-        internal static string AddProductRes {
+        internal static string AddProduct {
             get {
                 return ResourceManager.GetString("AddProduct", resourceCulture);
             }
@@ -95,25 +95,25 @@ namespace ProductsManagement.Assets {
             }
         }
         
-        internal static string FindProductRes {
+        internal static string FindProduct {
             get {
                 return ResourceManager.GetString("FindProduct", resourceCulture);
             }
         }
         
-        internal static string SaveXmlRes {
+        internal static string SaveXml {
             get {
                 return ResourceManager.GetString("SaveXml", resourceCulture);
             }
         }
         
-        internal static string LoadXmlRes {
+        internal static string LoadXml {
             get {
                 return ResourceManager.GetString("LoadXml", resourceCulture);
             }
         }
         
-        internal static string EditDatabaseRes {
+        internal static string EditDatabase {
             get {
                 return ResourceManager.GetString("EditDatabase", resourceCulture);
             }
