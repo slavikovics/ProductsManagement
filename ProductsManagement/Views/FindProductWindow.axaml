@@ -115,7 +115,7 @@
                                         Binding="{Binding ManufacturerUnp}"/>
                     
                             <DataGridTextColumn Header="{Binding StorageQuantityContent}"
-                                        Binding="{Binding StorageQuantity}"/>
+                                        Binding="{Binding StorageQuantityRecord}"/>
                     
                             <DataGridTextColumn Header="{Binding AddressContent}"
                                         Binding="{Binding Address}"/>
