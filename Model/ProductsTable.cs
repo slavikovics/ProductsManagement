@@ -85,7 +85,6 @@ public class ProductsTable
         
         catch (Exception ex)
         {
-            throw new Exception("Cannot read product from XML file.", ex);
         }
     }
 

@@ -153,6 +153,7 @@ namespace ProductsManagement.ViewModels
         [RelayCommand]
         public async Task OpenFileAsync(Window parent)
         {
+            SelectedPageNumber = 1;
             var file = await _filePicker.OpenFileAsync(parent);
             if (file == null) return;
 
@@ -247,6 +248,7 @@ namespace ProductsManagement.ViewModels
         [RelayCommand]
         public void EditDatabase()
         {
+            SelectedPageNumber = 1;
             _productsTable = new ProductsTable();
             IsDatabaseEnabled = false;
             _productsTable.Products.CollectionChanged += (sender, args) => RebuildTable(); 

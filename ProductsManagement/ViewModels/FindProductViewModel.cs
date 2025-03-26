@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Avalonia.Logging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.IdentityModel.Tokens;
@@ -104,7 +105,14 @@ public partial class FindProductViewModel: ViewModelBase
     [RelayCommand]
     public void DeleteSelection()
     {
-        foreach (var product in FoundProducts) _productsTable.Products.Remove(product);
+        try
+        {
+            foreach (var product in FoundProducts) _productsTable.Products.Remove(product);
+        }
+        catch (Exception e)
+        {
+        }
+        
         Find();
     }
 }
